@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material'
 import { getEventHeight } from './utils/getEventHeight';
 
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 Event.propTypes = {
   title: PropTypes.string.isRequired,
@@ -13,36 +14,45 @@ Event.propTypes = {
 };
 function Event({ width, start, end, drag, color, title }) {
 
+  const [opacity, setOpacity] = useState(1);
+
   const height = getEventHeight(start, end);
+  const finalWidth = !drag ? 130 : width;
 
   return (
     <>
-      <Box sx={eventStyle(width, height, color, drag)}
+      <Box onDragStart={()=>setOpacity(0.5)}
+        onDragEnd={()=>setOpacity(1)}
+        sx={eventStyle(finalWidth, height, color, opacity, drag)}
         draggable={drag ? true : false}>
-        <Typography variant='p'>{title}</Typography>
+        <Typography variant='p' sx={{userSelect: "none"}}>
+          {title}
+        </Typography>
       </Box>
     </>
   )
 }
 
-const eventStyle = (width, height, color, drag) => ({
-  pointerEvents: drag ? "auto" : "none",
+const eventStyle = (width, height, color, opacity, drag) => ({
+  pointerEvents: drag ? (drag.dragStart ? "none" : "auto") : "none",
   whiteSpace: 'pre-line',
   position: "absolute",
-  top: 2,
-  left: 4,
-  width: width ? width : 120,
+  top: -1,
+  left: 0,
+  opacity: opacity,
+  width: width ? width : 110,
   height: height,
   display: "flex",
   justifyContent: "center",
   backgroundColor: color ? color : "#9441d8",
-  borderRadius: 3,
+  borderRadius: 2,
   border: "1pt solid white",
   color: "white",
   pt: 1,
   fontSize: 12,
-  zIndex: width ? 89 : 90,
+  zIndex: drag ? 89 : 90,
   transition: "0.1s",
+  
 });
 
 export default Event;

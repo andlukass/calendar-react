@@ -21,7 +21,9 @@ function EventSelector({ hour, day, drag }) {
       {
         hour === getStart() && day == dragDay ?
         <Event start={dragStart} end={dragEnd} title={`Novo Evento
-          ${getHourByIndex(dragStart)}-${getHourByIndex(dragEnd)}`} /> : null
+          ${getHourByIndex(dragStart)} - ${getHourByIndex(dragEnd)}`}
+        />
+          : null
       }
     </>
   )
