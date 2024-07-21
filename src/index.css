@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Para navegadores baseados em WebKit como Chrome, Safari, etc. */
+#hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Para Firefox, aplicando ao elemento com ID hide-scroll */
+#hide-scroll {
+  scrollbar-width: none;
+}
