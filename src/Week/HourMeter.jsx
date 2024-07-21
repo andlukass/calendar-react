@@ -8,8 +8,8 @@ function HourMeter() {
     <>
       <Box width={80}>
         {hourIndexes.map((hour) => (
-          <Box key={hour} height={25} border="0.5pt solid transparent">
-            <Typography sx={{mt: -1.5}}>
+          <Box key={hour} minWidth={80} height={25} border="0.5pt solid transparent">
+            <Typography sx={{mt: -1.5, pr: 1, textAlign: "end"}}>
               {(hour % 2 || !hour) ? null : getHourByIndex(hour)}
             </Typography>
           </Box>
