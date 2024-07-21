@@ -29,8 +29,10 @@ function HourCell({ day, hour, drag }) {
 
 const cellStyle = (hour) => ({
   border: "0.5pt solid grey",
-  borderBottom: hour % 2 !== 0 ? "0.5pt solid grey" : "0.5pt solid transparent",
+  borderBottom: hour % 2 !== 0 ? "0.5pt solid #cdcdcd" : "0.5pt solid transparent",
+  borderLeft: "0.5pt solid #cdcdcd",
   borderTop: "0.5pt solid transparent",
+  borderRight: "0.5pt solid transparent",
   justifyContent: "center",
   alignItems: "center",
   display: "flex",

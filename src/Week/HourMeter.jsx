@@ -6,11 +6,17 @@ function HourMeter() {
 
   return (
     <>
-      <Box width={80}>
+      <Box width={60}>
         {hourIndexes.map((hour) => (
-          <Box key={hour} minWidth={80} height={25} border="0.5pt solid transparent">
-            <Typography sx={{mt: -1.5, pr: 1, textAlign: "end"}}>
-              {(hour % 2 || !hour) ? null : getHourByIndex(hour)}
+          <Box key={hour} minWidth={60} height={25} border="0.5pt solid transparent">
+            <Typography sx={{mt: -1.5,
+              pr: 1,
+              textAlign: "end",
+              color: "#767676",
+              fontWeight: 400,
+              fontSize: 12,
+            }}>
+              {(hour % 2 || !hour) ? null : getHourByIndex(hour, true)}
             </Typography>
           </Box>
         ))}
