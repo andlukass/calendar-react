@@ -5,9 +5,10 @@ import HourCell from './HourCell';
 import PropTypes from 'prop-types';
 
 Hours.propTypes = {
+  day: PropTypes.number.isRequired,
   drag: PropTypes.object.isRequired,
 };
-function Hours({ drag }) {
+function Hours({ day, drag }) {
 
   const { dragStart, dragEnd } = drag;
 
@@ -15,8 +16,8 @@ function Hours({ drag }) {
     <div>
       {hourIndexes.map((hour) => (
         <div key={hour} style={{position: "relative"}}>
-          <HourCell hour={hour} drag={drag}/>
-          <EventSelector hour={hour}
+          <HourCell hour={hour} drag={drag} day={day} />
+          <EventSelector hour={hour} day={day}
             dragStart={dragStart}
             dragEnd={dragEnd} />
         </div>

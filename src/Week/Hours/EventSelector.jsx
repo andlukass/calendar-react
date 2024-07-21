@@ -8,7 +8,7 @@ EventSelector.propTypes = {
   dragStart: PropTypes.number,
   dragEnd: PropTypes.number,
 };
-function EventSelector({ hour, dragStart, dragEnd }) {
+function EventSelector({ hour, day, dragStart, dragEnd }) {
 
   const getStart = () => {
     return dragStart - dragEnd < 0 ? dragStart : dragEnd;

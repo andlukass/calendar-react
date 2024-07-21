@@ -3,10 +3,11 @@ import { Box } from '@mui/material'
 import PropTypes from 'prop-types';
 
 HourCell.propTypes = {
+  day: PropTypes.number.isRequired,
   hour: PropTypes.number.isRequired,
   drag: PropTypes.object.isRequired,
 };
-function HourCell({ hour, drag }) {
+function HourCell({ day, hour, drag }) {
   
   const { startDraggin, stopDraggin, updateEnd } = drag;
 
@@ -27,9 +28,9 @@ function HourCell({ hour, drag }) {
 }
 
 const cellStyle = (hour) => ({
-  border: hour.isDragOver ? "0.5pt solid transparent" : "0.5pt solid grey",
+  border: "0.5pt solid grey",
+  borderBottom: hour % 2 !== 0 ? "0.5pt solid grey" : "0.5pt solid transparent",
   borderTop: "0.5pt solid transparent",
-  borderBottom: hour.hour % 2 !== 0 ? "0.5pt solid grey" : "0.5pt solid transparent",
   justifyContent: "center",
   alignItems: "center",
   display: "flex",
