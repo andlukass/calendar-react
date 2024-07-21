@@ -10,16 +10,12 @@ Hours.propTypes = {
 };
 function Hours({ day, drag }) {
 
-  const { dragStart, dragEnd } = drag;
-
   return (
     <div>
       {hourIndexes.map((hour) => (
         <div key={hour} style={{position: "relative"}}>
           <HourCell hour={hour} drag={drag} day={day} />
-          <EventSelector hour={hour} day={day}
-            dragStart={dragStart}
-            dragEnd={dragEnd} />
+          <EventSelector hour={hour} drag={drag} day={day} />
         </div>
       ))}
     </div>

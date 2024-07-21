@@ -12,7 +12,7 @@ function HourCell({ day, hour, drag }) {
   const { startDraggin, stopDraggin, updateEnd } = drag;
 
   return (
-    <Box onDragStart={(e)=>startDraggin(e, hour)}
+    <Box onDragStart={()=>startDraggin(day, hour)}
       onDragEnd={()=>stopDraggin(hour)}
       onDrop={()=>stopDraggin(hour)}
       onDragOver={(e) => {
