@@ -7,26 +7,26 @@ Event.propTypes = {
   title: PropTypes.string.isRequired,
   start: PropTypes.number.isRequired,
   end: PropTypes.number.isRequired,
-  draggable: PropTypes.bool,
+  drag: PropTypes.object,
   color: PropTypes.string,
   width: PropTypes.number,
 };
-function Event({ width, start, end, draggable, color, title }) {
+function Event({ width, start, end, drag, color, title }) {
 
   const height = getEventHeight(start, end);
 
   return (
     <>
-      <Box sx={eventStyle(width, height, color, draggable)}
-        draggable={draggable}>
+      <Box sx={eventStyle(width, height, color, drag)}
+        draggable={drag ? true : false}>
         <Typography variant='p'>{title}</Typography>
       </Box>
     </>
   )
 }
 
-const eventStyle = (width, height, color, draggable) => ({
-  pointerEvents: draggable ? "auto" : "none",
+const eventStyle = (width, height, color, drag) => ({
+  pointerEvents: drag ? "auto" : "none",
   whiteSpace: 'pre-line',
   position: "absolute",
   top: 2,
