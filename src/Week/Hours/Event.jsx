@@ -16,7 +16,7 @@ function Event({ width, start, end, drag, color, title }) {
 
   const [opacity, setOpacity] = useState(1);
 
-  const height = getEventHeight(start, end);
+  const height = getEventHeight(start, end + 1);
   const finalWidth = !drag ? 130 : width;
 
   return (
@@ -35,6 +35,7 @@ function Event({ width, start, end, drag, color, title }) {
 
 const eventStyle = (width, height, color, opacity, drag) => ({
   pointerEvents: drag ? (drag.dragStart ? "none" : "auto") : "none",
+  textAlign: "center",
   whiteSpace: 'pre-line',
   position: "absolute",
   top: -1,

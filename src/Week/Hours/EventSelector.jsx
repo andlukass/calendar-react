@@ -16,15 +16,13 @@ function EventSelector({ hour, day, drag }) {
     return dragStart - dragEnd < 0 ? dragStart : dragEnd;
   }
 
+  const title = Math.abs(dragStart - dragEnd) === 0 ? `Novo Evento, ${getHourByIndex(dragStart)}`
+    : `Novo Evento\n${getHourByIndex(dragStart)} - ${getHourByIndex(dragEnd + 1)}`;
+
   return (
     <>
-      {
-        hour === getStart() && day == dragDay ?
-        <Event start={dragStart} end={dragEnd} title={`Novo Evento
-          ${getHourByIndex(dragStart)} - ${getHourByIndex(dragEnd)}`}
-        />
-          : null
-      }
+      { hour === getStart() && day == dragDay &&
+      <Event start={dragStart} end={dragEnd} title={title} />}
     </>
   )
 }
