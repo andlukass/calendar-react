@@ -1,14 +1,16 @@
 
 import PropTypes from 'prop-types';
-import { events } from './utils/events';
 import Event from './Event';
 
-WeekEvents.propTypes = {
-  day: PropTypes.number.isRequired,
+DayEvents.propTypes = {
   hour: PropTypes.number.isRequired,
   drag: PropTypes.object.isRequired,
+  events: PropTypes.array.isRequired,
 };
-function WeekEvents({ day, hour, drag }) {
+function DayEvents({ hour, drag, events }) {
+
+  if (!events || !events.length) return null;
+  const day = events[0].day;
 
   return (
     <>
@@ -27,4 +29,4 @@ function WeekEvents({ day, hour, drag }) {
   )
 }
 
-export default WeekEvents
+export default DayEvents
