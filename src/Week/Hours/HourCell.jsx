@@ -36,7 +36,7 @@ const cellStyle = (hour) => ({
   justifyContent: "center",
   alignItems: "center",
   display: "flex",
-  minWidth: 130,
+  minWidth: 120,
   height: 25,
 });
 

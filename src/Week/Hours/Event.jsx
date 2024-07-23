@@ -17,7 +17,7 @@ function Event({ width, start, end, drag, color, title }) {
   const [opacity, setOpacity] = useState(1);
 
   const height = getEventHeight(start, end + 1);
-  const finalWidth = !drag ? 130 : width;
+  const finalWidth = !drag ? 120 : width;
 
   return (
     <>
@@ -41,7 +41,7 @@ const eventStyle = (width, height, color, opacity, drag) => ({
   top: -1,
   left: 0,
   opacity: opacity,
-  width: width ? width : 110,
+  width: width ? width : 100,
   height: height,
   display: "flex",
   justifyContent: "center",

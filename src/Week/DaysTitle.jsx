@@ -8,8 +8,8 @@ function DaysTitle() {
       <Box sx={{ display: "flex" }}>
         <Box minWidth={60} />
         {weekDays.map((day, index) => (
-          <Box key={index} minWidth={130} border="0.5pt solid grey">
-            <Typography sx={{ textAlign: "center" }}>
+          <Box key={index} minWidth={120} border="0.5pt solid grey">
+            <Typography sx={{ textAlign: "center"}}>
               {day}
             </Typography>
           </Box>
