@@ -1,6 +1,7 @@
 
 import PropTypes from 'prop-types';
 import Event from './Event';
+import { users } from '../../data/users/users';
 
 DayEvents.propTypes = {
   hour: PropTypes.number.isRequired,
@@ -12,6 +13,9 @@ function DayEvents({ hour, drag, events }) {
   if (!events || !events.length) return null;
   const day = events[0].day;
 
+  const eventColor = (eventUser) => 
+    users.find((user) => user.id === eventUser).color;
+
   return (
     <>
       {events.map((event) => (
@@ -19,7 +23,7 @@ function DayEvents({ hour, drag, events }) {
         <Event key={event.id}
           title={event.title}
           start={event.start}
-          color={event.user}
+          color={eventColor(event.user)}
           end={event.end}
           left={event.left}
           drag={drag}

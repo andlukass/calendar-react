@@ -5,8 +5,11 @@ import useDrag from "./useDrag";
 import { weekDays } from "./utils/weekDays";
 import DaysTitle from "./DaysTitle";
 import HourMeter from "./HourMeter";
+import { useEventsStore } from "../data/events/useEventsStore";
 
-function Week({ events }) {
+function Week() {
+
+  const events = useEventsStore((state) => state.events);
 
   const drag = useDrag();
 
