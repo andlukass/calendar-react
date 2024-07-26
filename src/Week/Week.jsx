@@ -6,7 +6,7 @@ import { weekDays } from "./utils/weekDays";
 import DaysTitle from "./DaysTitle";
 import HourMeter from "./HourMeter";
 
-function Week() {
+function Week({ events }) {
 
   const drag = useDrag();
 
@@ -16,7 +16,7 @@ function Week() {
       <Box id="hide-scroll" display="flex" overflow="auto" height="90vh">
         <HourMeter />
         {weekDays.map((day, index) => (
-          <Hours drag={drag} day={index} key={index} />
+          <Hours events={events} drag={drag} day={index} key={index} />
         ))}
       </Box>
     </>

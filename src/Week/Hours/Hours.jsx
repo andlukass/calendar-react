@@ -4,28 +4,17 @@ import HourCell from './HourCell';
 
 import PropTypes from 'prop-types';
 import DayEvents from './DayEvents';
-import { events } from './utils/events';
 
 Hours.propTypes = {
   day: PropTypes.number.isRequired,
   drag: PropTypes.object.isRequired,
+  events: PropTypes.array.isRequired,
 };
-function Hours({ day, drag }) {
+function Hours({ day, drag, events }) {
 
-  const sortEvents = (events) => {
-    return events.sort((a, b) => {
-      // Primeira condição: ordenar pelo start
-      if (a.start !== b.start) {
-        return a.start - b.start;
-      }
-      // Segunda condição: ordenar pela duração (end - start)
-      const durationA = a.end - a.start;
-      const durationB = b.end - b.start;
-      return durationA - durationB;
-    });
-  }
 
-  const databaseEvents = sortEvents(events.filter((event) => event.day === day));
+
+  const dayEvents = events.filter((event) => event.day === day);
 
   const isOverlapping = (a, b) => {
     return a.start < b.end && b.start < a.end;
@@ -95,7 +84,7 @@ function Hours({ day, drag }) {
     return events;
   }
 
-  const dayEventsVerified = getEventsProps(databaseEvents);
+  const dayEventsVerified = getEventsProps(dayEvents);
 
   return (
     <div>
