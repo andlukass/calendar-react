@@ -21,7 +21,9 @@ function DayEvents({ hour, drag, events }) {
           start={event.start}
           color={event.user}
           end={event.end}
+          left={event.left}
           drag={drag}
+          width={event.width ? event.width : 100}
         />
       ))
       }

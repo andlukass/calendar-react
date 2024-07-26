@@ -11,8 +11,9 @@ Event.propTypes = {
   drag: PropTypes.object,
   color: PropTypes.string,
   width: PropTypes.number,
+  left: PropTypes.number,
 };
-function Event({ width, start, end, drag, color, title }) {
+function Event({ width, start, end, drag, color, title, left }) {
 
   const [opacity, setOpacity] = useState(1);
 
@@ -23,9 +24,9 @@ function Event({ width, start, end, drag, color, title }) {
     <>
       <Box onDragStart={()=>setOpacity(0.5)}
         onDragEnd={()=>setOpacity(1)}
-        sx={eventStyle(finalWidth, height, color, opacity, drag)}
+        sx={eventStyle(finalWidth, height, color, opacity, drag, left)}
         draggable={drag ? true : false}>
-        <Typography variant='p' sx={{userSelect: "none"}}>
+        <Typography variant='body1' sx={{userSelect: "none"}}>
           {title}
         </Typography>
       </Box>
@@ -33,13 +34,13 @@ function Event({ width, start, end, drag, color, title }) {
   )
 }
 
-const eventStyle = (width, height, color, opacity, drag) => ({
+const eventStyle = (width, height, color, opacity, drag, left) => ({
   pointerEvents: drag ? (drag.dragStart ? "none" : "auto") : "none",
   textAlign: "center",
   whiteSpace: 'pre-line',
   position: "absolute",
   top: -1,
-  left: 0,
+  left: left,
   opacity: opacity,
   width: width ? width : 100,
   height: height,
