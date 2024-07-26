@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 
 import PropTypes from 'prop-types';
+import { useEventModalStore } from '../../data/eventModal/useEventModalStore';
 
 HourCell.propTypes = {
   day: PropTypes.number.isRequired,
@@ -9,12 +10,25 @@ HourCell.propTypes = {
 };
 function HourCell({ day, hour, drag }) {
   
-  const { startDraggin, stopDraggin, updateEnd } = drag;
+  const { dragStart, startDraggin, stopDraggin, updateEnd } = drag;
+  const setEvent = useEventModalStore((state) => state.setEvent);
+
+  const createEvent = (start) => {
+    setEvent({
+      day: day,
+      start: start,
+      end: hour,
+    })
+  };
 
   return (
     <Box onDragStart={()=>startDraggin(day, hour)}
-      onDragEnd={()=>stopDraggin(hour)}
-      onDrop={()=>stopDraggin(hour)}
+      onDragEnd={()=>{stopDraggin()}}
+      onDrop={()=>{stopDraggin();
+        if (!dragStart) return;
+        createEvent(dragStart)
+      }}
+      onClick={()=>createEvent(hour)}
       onDragOver={(e) => {
         e.preventDefault();
         updateEnd(hour);

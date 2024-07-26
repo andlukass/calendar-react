@@ -1,4 +1,4 @@
-import { Autocomplete, TextField, createFilterOptions } from "@mui/material";
+import { Autocomplete, TextField, Typography, createFilterOptions } from "@mui/material";
 import { muiInputBorderErrorSx } from "./muiInputBorderErrorSx";
 import { useEffect, useRef, useState } from "react";
 import { Controller } from "react-hook-form";
@@ -60,13 +60,13 @@ function AutocompleteRegister( {form, fieldName, options, width, creatable, disa
                 width: width ? width : 300, 
               }}
               onInputChange={(event, newInputValue) => {
-                console.log('onInputChange')
                 setValue(fieldName, newInputValue);
                 setInputValue(newInputValue);
                 clearErrors(fieldName);
               }}
               {...(creatable && creatableParams)}
               inputValue={inputValue}
+              disableClearable
               options={options || []}
               value={value || null}
               size="small"
@@ -75,7 +75,7 @@ function AutocompleteRegister( {form, fieldName, options, width, creatable, disa
           )
         }}
       /> 
-      {errors[fieldName] && <p className="warning label">{errors[fieldName].message}</p>}
+      {errors[fieldName] && <Typography color={"error"} fontSize={12}>{errors[fieldName].message}</Typography>}
     </>
   );
 }

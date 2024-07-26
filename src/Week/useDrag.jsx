@@ -15,13 +15,13 @@ function useDrag() {
     setDragDay(day);
   }
 
-  const stopDraggin = (end) => {
+  const stopDraggin = () => {
     setDragStart(null);
     setDragEnd(null);
     setDragDay(null);
     if (dragStart === null) return;
-    console.log('dragging started at: ', dragStart,
-    'and ended at: ', end, ' on day: ', dragDay);
+    // console.log('dragging started at: ', dragStart,
+    // 'and ended at: ', end, ' on day: ', dragDay);
   }
 
   useEffect(() => {

@@ -17,15 +17,15 @@ const sortEvents = (events) => {
 export const useEventsStore = create((set) => ({
 		events: sortEvents(initialEvents),
     addEvent: (event) => set((state) => (
-      { events: [...state.events, event] }
+      { events: sortEvents([...state.events, event]) }
     )),
     removeEvent: (id) => set((state) => (
       { events: state.events.filter((event) => event.id !== id) }
     )),
     editEvent: (updatedEvent) => set((state) => ({
-      events: state.events.map((event) => 
+      events: sortEvents(state.events.map((event) => 
         event.id === updatedEvent.id ? { ...event, ...updatedEvent } : event
-      )
+      ))
     })),
 	})
 );
