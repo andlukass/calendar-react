@@ -22,9 +22,11 @@ export const useEventsStore = create((set) => ({
     removeEvent: (id) => set((state) => (
       { events: state.events.filter((event) => event.id !== id) }
     )),
-    editEvent: (event) => set((state) => (
-      { events: state.events.map((e) => e.id === event.id ? event : e) }
-    )),
+    editEvent: (updatedEvent) => set((state) => ({
+      events: state.events.map((event) => 
+        event.id === updatedEvent.id ? { ...event, ...updatedEvent } : event
+      )
+    })),
 	})
 );
 

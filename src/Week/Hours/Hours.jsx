@@ -68,8 +68,6 @@ function Hours({ day, drag, events }) {
       }
     }
 
-    console.log(events);
-
     events.forEach((event) => {
       if (event.groupDepth === 0) {
         event.left = 0;
@@ -80,7 +78,7 @@ function Hours({ day, drag, events }) {
       event.left = event.depth * factor;
       event.width = 100 - event.left;
     });
-
+    console.log(events)
     return events;
   }
 

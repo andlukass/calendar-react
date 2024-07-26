@@ -12,8 +12,9 @@ Event.propTypes = {
   color: PropTypes.string,
   width: PropTypes.number,
   left: PropTypes.number,
+  onClick: PropTypes.func,
 };
-function Event({ width, start, end, drag, color, title, left }) {
+function Event({ width, start, end, drag, color, title, left, onClick}) {
 
   const [opacity, setOpacity] = useState(1);
 
@@ -22,7 +23,9 @@ function Event({ width, start, end, drag, color, title, left }) {
 
   return (
     <>
-      <Box onDragStart={()=>setOpacity(0.5)}
+      <Box 
+        onClick={onClick}
+        onDragStart={()=>setOpacity(0.5)}
         onDragEnd={()=>setOpacity(1)}
         sx={eventStyle(finalWidth, height, color, opacity, drag, left)}
         draggable={drag ? true : false}>
@@ -38,6 +41,7 @@ const eventStyle = (width, height, color, opacity, drag, left) => ({
   pointerEvents: drag ? (drag.dragStart ? "none" : "auto") : "none",
   textAlign: "center",
   whiteSpace: 'pre-line',
+  cursor: 'pointer',
   position: "absolute",
   top: -1,
   left: left,
