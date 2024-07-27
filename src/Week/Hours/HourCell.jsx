@@ -14,10 +14,12 @@ function HourCell({ day, hour, drag }) {
   const setEvent = useEventModalStore((state) => state.setEvent);
 
   const createEvent = (start) => {
+    const eventEnd = Math.max(hour, start);
+    const eventStart = Math.min(hour, start);
     setEvent({
       day: day,
-      start: start,
-      end: hour,
+      start: eventStart,
+      end: eventEnd,
     });
     stopDraggin();
   };
