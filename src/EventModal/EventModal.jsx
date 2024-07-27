@@ -29,8 +29,9 @@ function EventModal( ) {
 
   useEffect(() => {
     if (event) {
+      console.log(event.start, event.end)
       const start = event.start ? event.start : 0;
-      const end = event.end ? event.end + 1 : 1;
+      const end = event.end + 1;
       const user = event.id ? users.find((user) => user.id === event.user).name : '';
       form.setValue('id', event.id);
       form.setValue('title', event.title);
@@ -44,10 +45,10 @@ function EventModal( ) {
   const onSave = () => {
     let event = form.getValues();
     event.start = (getIndexByHour(event.start));
-    event.end = (getIndexByHour(event.end));
+    event.end = (getIndexByHour(event.end)-1);
+    event.user = users.find((user) => user.name === event.user).id;
     if (event.id) editEvent(event);
     else {
-      event.user = users.find((user) => user.name === event.user).id;
       event.id = Math.random();
       addEvent(event);
     }

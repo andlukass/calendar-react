@@ -4,7 +4,6 @@ export const getEventHeight = (dragStart, dragEnd) => {
   const end = dragStart < dragEnd ? dragEnd : dragStart;
   const diff = (end - start);
 
-  let cells = (diff);
-  const height = (35 * cells)-(cells*10);
+  const height = (30 * diff)-(diff*3.5);
   return height;
 }
