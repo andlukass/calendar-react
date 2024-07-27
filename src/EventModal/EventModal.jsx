@@ -29,7 +29,6 @@ function EventModal( ) {
 
   useEffect(() => {
     if (event) {
-      console.log(event.start, event.end)
       const start = event.start ? event.start : 0;
       const end = event.end + 1;
       const user = event.id ? users.find((user) => user.id === event.user).name : '';
