@@ -11,31 +11,19 @@ DayEvents.propTypes = {
 };
 function DayEvents({ hour, drag, events }) {
 
-  const [event, setEvent] = useEventModalStore((state) =>
-    [state.event, state.setEvent]);
+  const setEvent = useEventModalStore((state) => state.setEvent);
 
   if (!events || !events.length) return null;
   const day = events[0].day;
-
-  const eventColor = (eventUser) => 
-    users.find((user) => user.id === eventUser).color;
 
   return (
     <>
       {events.map((event) => (
         event.day === day && event.start === hour &&
-        <Event
-          onClick={() => {
-            setEvent(event);
-          }}
+        <Event onClick={()=>setEvent(event)}
           key={event.id}
-          title={event.title}
-          start={event.start}
-          color={eventColor(event.user)}
-          end={event.end}
-          left={event.left}
+          event={event}
           drag={drag}
-          width={event.width ? event.width : 100}
         />
       ))
       }

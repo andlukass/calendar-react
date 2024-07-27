@@ -3,7 +3,7 @@ export const initialEvents = [
       id: 53,
       date: new Date(),
       start: 2,
-      end: 7,
+      end: 3,
       day: 0,
       user: "1",
       title: "Hotel California",

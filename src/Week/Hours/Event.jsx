@@ -1,64 +1,85 @@
 import { Box, Typography } from '@mui/material'
-import { getEventHeight } from './utils/getEventHeight';
 
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import useEvent from './useEvent';
 
 Event.propTypes = {
-  title: PropTypes.string.isRequired,
-  start: PropTypes.number.isRequired,
-  end: PropTypes.number.isRequired,
+  event: PropTypes.object,
   drag: PropTypes.object,
-  color: PropTypes.string,
-  width: PropTypes.number,
-  left: PropTypes.number,
   onClick: PropTypes.func,
 };
-function Event({ width, start, end, drag, color, title, left, onClick}) {
+function Event({ event, drag, onClick}) {
 
-  const [opacity, setOpacity] = useState(1);
-
-  const height = getEventHeight(start, end + 1);
-  const finalWidth = !drag ? 120 : width;
+  const { eventContainerRef,
+    handleDragStart,
+    handleDragOver,
+    handleDragLeave,
+    handleDragEnd, eventProps } = useEvent({ event, drag });
 
   return (
     <>
-      <Box 
-        onClick={onClick}
-        onDragStart={()=>setOpacity(0.5)}
-        onDragEnd={()=>setOpacity(1)}
-        sx={eventStyle(finalWidth, height, color, opacity, drag, left)}
-        draggable={drag ? true : false}>
-        <Typography variant='body1' sx={{userSelect: "none"}}>
-          {title}
-        </Typography>
+      <Box ref={eventContainerRef} onClick={onClick}
+        sx={containerStyle(eventProps, drag)}
+        onDragLeave={handleDragLeave}
+        onDragOver={handleDragOver}
+        onDragEnd={handleDragEnd}
+      >
+        <Box sx={cellStyle} draggable onDragStart={(e)=>{handleDragStart(e, -1)}}>
+          <Typography variant='body1' sx={titleStyle}>
+            {event.title}
+          </Typography>
+        </Box>
+        { eventProps.size > 1 &&
+          Array.from({ length: (eventProps.size - 1) }, (_, index) => index + 1).map((item, index) => (
+            <Box key={index} sx={cellStyle} draggable
+              onDragStart={(e)=>{handleDragStart(e, index)}}
+            />
+          ))
+        }
       </Box>
     </>
   )
 }
 
-const eventStyle = (width, height, color, opacity, drag, left) => ({
-  pointerEvents: drag ? (drag.dragStart ? "none" : "auto") : "none",
+const titleStyle = {
+  fontWeight: "bold",
+  fontSize: 12,
+  userSelect: "none",
+  mt: 3,
+  textAlign: "start",
+};
+
+const cellStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: 25,
+  p:0,
+  border: "0.5pt solid transparent",
+}
+
+const containerStyle = (eventProps, drag) => ({
+  pointerEvents: drag ? ((eventProps.isDragging) ? "none" : "auto") : "none",
   textAlign: "center",
   whiteSpace: 'pre-line',
   cursor: 'pointer',
   position: "absolute",
   top: -1,
-  left: left,
-  opacity: opacity,
-  width: width ? width : 100,
-  height: height,
+  left: eventProps.left,
+  opacity: eventProps.opacity,
+  width: eventProps.width ? eventProps.width : 100,
+  height: "auto",
   display: "flex",
+  flexDirection: "column",
   justifyContent: "center",
-  backgroundColor: color ? color : "#9441d8",
+  backgroundColor: eventProps.color ? eventProps.color : "#9441d8",
   borderRadius: 2,
   border: "1pt solid white",
   color: "white",
-  pt: 1,
   fontSize: 12,
   zIndex: drag ? 89 : 90,
   transition: "0.1s",
-  
+
 });
 
 export default Event;

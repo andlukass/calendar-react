@@ -18,20 +18,21 @@ function HourCell({ day, hour, drag }) {
       day: day,
       start: start,
       end: hour,
-    })
+    });
+    stopDraggin();
   };
 
   return (
     <Box onDragStart={()=>startDraggin(day, hour)}
       onDragEnd={()=>{stopDraggin()}}
-      onDrop={()=>{stopDraggin();
-        if (!dragStart) return;
+      onDrop={()=>{
+        if (dragStart === -1) return;
         createEvent(dragStart)
       }}
       onClick={()=>createEvent(hour)}
       onDragOver={(e) => {
         e.preventDefault();
-        updateEnd(hour);
+        updateEnd(day, hour);
       }}
       className="draggable-item"
       sx={cellStyle(hour)}

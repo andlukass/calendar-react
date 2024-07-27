@@ -10,7 +10,7 @@ EventSelector.propTypes = {
 };
 function EventSelector({ hour, day, drag }) {
 
-  const { dragStart, dragEnd, dragDay } = drag;
+  const { eventDragStart, dragStart, dragEnd, dragDay } = drag;
 
   const getStart = () => {
     return dragStart - dragEnd < 0 ? dragStart : dragEnd;
@@ -19,10 +19,18 @@ function EventSelector({ hour, day, drag }) {
   const title = Math.abs(dragStart - dragEnd) === 0 ? `Novo Evento, ${getHourByIndex(dragStart)}`
     : `Novo Evento\n${getHourByIndex(dragStart)} - ${getHourByIndex(dragEnd + 1)}`;
 
+    const event = {
+      start: dragStart,
+      title: title,
+      end: dragEnd,
+      day: dragDay,
+      width: 120,
+    }
+
   return (
     <>
-      { hour === getStart() && day == dragDay &&
-      <Event start={dragStart} end={dragEnd} title={title} />}
+      { eventDragStart === -1 && hour === getStart() && day === dragDay &&
+      <Event event={event} />}
     </>
   )
 }
