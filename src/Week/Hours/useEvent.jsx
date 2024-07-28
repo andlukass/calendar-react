@@ -62,13 +62,13 @@ function useEvent({ event, drag }) {
 
   const handleDragStart = (e, index) => {
     drag.startEventDraggin(event.day, event.start + index + 1);
-    changeGhostImg(e, containerImg, 0, ((index+1)*25));
+    changeGhostImg(e, containerImg, 0, ((index+1)*27));
     setOpacity(0.5);
   }
 
   useEffect(() => {
     getGhostImg(eventContainerRef, containerImg);
-  }, []);
+  }, [event]);
 
   return { eventContainerRef,
     handleDragLeave,
