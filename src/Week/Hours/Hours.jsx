@@ -50,8 +50,8 @@ function Hours({ day, drag, events }) {
 
     for (let i = 0; i < events.length; i++) {
       const next = findOverlap(events[i], events);
-      if (next !== -1 && i > 0) {
-        const last = lastOverlap(events[i], events, i - 1);
+      const last = lastOverlap(events[i], events, i - 1);
+      if (last !== -1 && next !== -1 && i > 0) {
           events[i].depth = events[last].depth + 1;
       } else {
         events[i].depth = 0;
