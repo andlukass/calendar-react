@@ -6,16 +6,11 @@ function HourMeter() {
 
   return (
     <>
-      <Box width={60}>
+      <Box sx={containerStyle}>
+        <Box width={60} height={40} sx={marginBoxStyle} />
         {hourIndexes.map((hour) => (
-          <Box key={hour} minWidth={60} height={25} border="0.5pt solid transparent">
-            <Typography sx={{mt: -1.5,
-              pr: 1,
-              textAlign: "end",
-              color: "#767676",
-              fontWeight: 400,
-              fontSize: 12,
-            }}>
+          <Box key={hour} sx={cellStyle}>
+            <Typography sx={labelStyle}>
               {(hour % 2 || !hour) ? null : getHourByIndex(hour, true)}
             </Typography>
           </Box>
@@ -23,6 +18,37 @@ function HourMeter() {
       </Box>
     </>
   )
+}
+
+const containerStyle = {
+  width: 60,
+  position: "sticky",
+  left: 0,
+  zIndex: 92,
+  height: "auto",
+  p: 0.2
+}
+
+const marginBoxStyle = {
+  backgroundColor: "white",
+  position: "sticky",
+  top: 0,
+}
+
+const cellStyle = {
+  backgroundColor: "white",
+  minWidth: 60,
+  height: 25,
+  border: "0.5pt solid transparent",
+}
+
+const labelStyle = {
+  mt: -1.3,
+  pr: 1,
+  textAlign: "end",
+  color: "#767676",
+  fontWeight: 400,
+  fontSize: 12,
 }
 
 export default HourMeter;

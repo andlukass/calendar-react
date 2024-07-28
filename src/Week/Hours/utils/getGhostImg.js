@@ -5,8 +5,8 @@ export const getGhostImg = async (ref, imgRef) => {
     const width = ref.current.offsetWidth;
     const height = ref.current.offsetHeight;
     const canvas = await html2canvas(ref.current, {
-      backgroundColor: null, // Define o fundo como transparente
-      scale: 1,
+      backgroundColor: null,
+      scale: 0.9,
       width: width,
       height: height,
     });

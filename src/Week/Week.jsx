@@ -3,7 +3,6 @@ import Hours from "./Hours/Hours";
 import useDrag from "./useDrag";
 
 import { weekDays } from "./utils/weekDays";
-import DaysTitle from "./DaysTitle";
 import HourMeter from "./HourMeter";
 import { useEventsStore } from "../data/events/useEventsStore";
 
@@ -15,8 +14,7 @@ function Week() {
 
   return (
     <>
-      <DaysTitle />
-      <Box id="hide-scroll" display="flex" overflow="auto" height="90vh">
+      <Box id="hide-scroll" sx={{display: "flex", overflow: "auto", height: "90vh", position: "relative"}}>
         <HourMeter />
         {weekDays.map((day, index) => (
           <Hours events={events} drag={drag} day={index} key={index} />

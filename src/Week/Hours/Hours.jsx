@@ -2,8 +2,9 @@ import { hourIndexes } from './utils/hourIndexes';
 import EventSelector from './EventSelector';
 import HourCell from './HourCell';
 
-import PropTypes from 'prop-types';
 import DayEvents from './DayEvents';
+import DayTitle from './DayTitle';
+import PropTypes from 'prop-types';
 
 Hours.propTypes = {
   day: PropTypes.number.isRequired,
@@ -11,8 +12,6 @@ Hours.propTypes = {
   events: PropTypes.array.isRequired,
 };
 function Hours({ day, drag, events }) {
-
-
 
   const dayEvents = events.filter((event) => event.day === day);
 
@@ -84,6 +83,7 @@ function Hours({ day, drag, events }) {
 
   return (
     <div>
+      <DayTitle day={day} />
       {hourIndexes.map((hour) => (
         <div key={hour} style={{position: "relative"}}>
           <HourCell hour={hour} drag={drag} day={day} />
