@@ -2,22 +2,38 @@ import { Box } from "@mui/material";
 import Hours from "./Hours/Hours";
 import useDrag from "./useDrag";
 
-import { weekDays } from "./utils/weekDays";
 import HourMeter from "./HourMeter";
 import { useEventsStore } from "../data/events/useEventsStore";
 
-function Week() {
+import PropTypes from 'prop-types';
+
+Week.propTypes = {
+  currentWeek: PropTypes.instanceOf(Date),
+};
+function Week({ currentWeek }) {
 
   const events = useEventsStore((state) => state.events);
 
   const drag = useDrag();
 
+  const getWeekDates = (startDate) => {
+    const weekDays = [];
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(startDate);
+      date.setDate(startDate.getDate() + i);
+      weekDays.push(date);
+    }
+    return weekDays;
+  }
+
+  const weekDays = getWeekDates(currentWeek);
+
   return (
     <>
       <Box id="hide-scroll" sx={{display: "flex", overflow: "auto", height: "90vh", position: "relative"}}>
         <HourMeter />
-        {weekDays.map((day, index) => (
-          <Hours events={events} drag={drag} day={index} key={index} />
+        {weekDays.map((date, index) => (
+          <Hours events={events} drag={drag} date={date} key={index} />
         ))}
       </Box>
     </>

@@ -1,27 +1,52 @@
+import { useState } from 'react';
 import EventModal from './EventModal/EventModal';
 import Week from './Week/Week';
+import { getMonthName } from './Week/Hours/utils/getMonthName';
+import Month from './Month/Month';
+import { Box, Button, Typography } from '@mui/material';
+import ModeButton from './ModeButton';
 
 function App() {
+
+  const today = new Date();
+
+  const baseWeek = new Date(
+    today.getFullYear(), today.getMonth(), today.getDate() - today.getDay()
+  );
+  
+  
+  const [mode, setMode] = useState("week");
+  const [currentWeek, setCurrentWeek] = useState(baseWeek);
+
+  const handleWeekChange = (front) => {
+    const diff = front ? 7 : -7;
+    const newWeekStart = new Date(currentWeek);
+    newWeekStart.setDate(currentWeek.getDate() + diff);
+    setCurrentWeek(newWeekStart)
+  }
+
+  const getNextMonth = (week) => {
+    const lastDay = new Date(week);
+    lastDay.setDate(week.getDate() + 6);
+    if (lastDay.getMonth() !== week.getMonth()) {
+      return " - " + getMonthName(lastDay);
+    }
+    return "";
+  }
 
   return (
     <>
       <EventModal />
-      <Week />
-      {/* <div style={{display: "flex", position: "relative", maxHeight: 600, border:"1px solid blue", overflow: "auto"}}>
-        <div style={{ position: "sticky", left: 0, border: "1px solid" }}> 
-          {Array.from({ length: 50 }, (_, index) => index + 1).map((item, index) => (
-            <p key={index+"real"} style={{ marginTop: 40}}>{index}real</p>
-          ))}
-        </div>
-        <div>
-          <div  style={{ display: "flex", position: "sticky", top: 0, border: "1px solid" }}>
-            {Array.from({ length: 50 }, (_, index) => index + 1).map((item, index) => (
-              <p key={index+"cm"}  style={{ marginLeft: 40}}>{index}cm</p>
-            ))}
-          </div>
-          <div style={{backgroundColor: "aqua", width: 1200, height: 500}}/>
-        </div>
-      </div> */}
+      <Box sx={{display: "flex", gap: 3, m: 2, userSelect: "none"}}>
+        <Button variant="outlined" onClick={()=>setCurrentWeek(baseWeek)}>Hoje</Button>
+        <Typography variant='h6' sx={{cursor: "pointer", p: 0.5}} onClick={()=>handleWeekChange(false)}> {"<"} </Typography>
+        <Typography variant='h6' sx={{cursor: "pointer", p: 0.5}} onClick={()=>handleWeekChange(true)}> {">"} </Typography>
+        <Typography variant='h6' sx={{p: 0.5, width: 500}}>{getMonthName(currentWeek) + getNextMonth(currentWeek) + " " +
+          currentWeek.getFullYear()}</Typography>
+          <ModeButton mode={mode} setMode={setMode} />
+      </Box>
+      {mode === "week" ? <Week currentWeek={currentWeek} /> :
+      <Month />}
     </>
   )
 }

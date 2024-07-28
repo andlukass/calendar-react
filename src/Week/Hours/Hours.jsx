@@ -7,13 +7,16 @@ import DayTitle from './DayTitle';
 import PropTypes from 'prop-types';
 
 Hours.propTypes = {
-  day: PropTypes.number.isRequired,
+  date: PropTypes.instanceOf(Date),
   drag: PropTypes.object.isRequired,
   events: PropTypes.array.isRequired,
 };
-function Hours({ day, drag, events }) {
+function Hours({ date, drag, events }) {
 
-  const dayEvents = events.filter((event) => event.day === day);
+  const day = date.getDate();
+  const dayEvents = events.filter((event) => 
+    (event.day === day) && (event.date.getMonth() === date.getMonth()
+    && event.date.getFullYear() === date.getFullYear()));
 
   const isOverlapping = (a, b) => {
     return a.start < b.end && b.start < a.end;
@@ -83,7 +86,7 @@ function Hours({ day, drag, events }) {
 
   return (
     <div>
-      <DayTitle day={day} />
+      <DayTitle date={date} />
       {hourIndexes.map((hour) => (
         <div key={hour} style={{position: "relative"}}>
           <HourCell hour={hour} drag={drag} day={day} />

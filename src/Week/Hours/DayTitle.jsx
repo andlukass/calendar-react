@@ -3,20 +3,20 @@ import { getDayName } from "./utils/getDayName";
 import PropTypes from 'prop-types';
 
 DayTitle.propTypes = {
-  day: PropTypes.number.isRequired,
+  date: PropTypes.instanceOf(Date),
 };
-function DayTitle({ day }) {
+function DayTitle({ date }) {
 
   return (
       <Box sx={containerStyle}>
           <Box sx={cellStyle} height={20}>
             <Typography variant="body2" sx={{fontSize: 12}}>
-              {getDayName(day)}
+              {getDayName(date)}
             </Typography>
           </Box>
           <Box sx={cellStyle} height={20}>
             <Typography variant="h4" sx={{color: "#656464"}}>
-              {day}
+              {date.getDate()}
             </Typography>
           </Box>
       </Box>
