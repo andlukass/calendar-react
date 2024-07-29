@@ -5,6 +5,8 @@ import HourCell from './HourCell';
 import DayEvents from './DayEvents';
 import DayTitle from './DayTitle';
 import PropTypes from 'prop-types';
+import Needle from './Needle';
+import { useEffect, useRef } from 'react';
 
 Hours.propTypes = {
   date: PropTypes.instanceOf(Date),
@@ -12,6 +14,8 @@ Hours.propTypes = {
   events: PropTypes.array.isRequired,
 };
 function Hours({ date, drag, events }) {
+
+  const needleRef = useRef(null);
 
   const day = date.getDate();
   const dayEvents = events.filter((event) => 
@@ -85,9 +89,22 @@ function Hours({ date, drag, events }) {
 
   const dayEventsVerified = getEventsProps(dayEvents);
 
+  const scrollToRef = () => {
+    needleRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  useEffect(() => {
+    const interval = setTimeout(() => {
+      scrollToRef();
+    }, 100);
+    return () => interval;
+  }, []);
+
   return (
-    <div>
+    <div style={{position: "relative"}}>
+      <p onClick={scrollToRef}>KKK</p>
       <DayTitle date={date} />
+      <Needle date={date} needleRef={needleRef} />
       {hourIndexes.map((hour) => (
         <div key={hour} style={{position: "relative"}}>
           <HourCell hour={hour} drag={drag} date={date} />
