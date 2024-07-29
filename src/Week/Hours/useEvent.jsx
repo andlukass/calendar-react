@@ -19,6 +19,7 @@ function useEvent({ event, drag }) {
   const eventColor = event.user && users.find((user) => user.id === event.user).color;
 
   const eventProps = {
+    id: event.id,
     left: event.left,
     color: eventColor,
     width: width,
@@ -47,9 +48,11 @@ function useEvent({ event, drag }) {
     editEvent(newEvent);
   }
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e, end) => {
     e.preventDefault();
     if (!isDragging) setIsDragging(true);
+    drag.updateEnd(event.date.getDate(), event.date.getMonth() + 1, event.date.getFullYear()
+    , end)
   }
 
   const handleDragLeave = () => {
@@ -63,7 +66,7 @@ function useEvent({ event, drag }) {
   }
 
   const handleDragStart = (e, index) => {
-    drag.startEventDraggin(event.day, event.start + index + 1);
+    drag.startEventDraggin(event.day, event.start + index + 1, event.id);
     changeGhostImg(e, containerImg, 0, ((index+1)*27));
     setOpacity(0.5);
   }

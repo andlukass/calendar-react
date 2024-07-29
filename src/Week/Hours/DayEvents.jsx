@@ -1,7 +1,6 @@
 
 import PropTypes from 'prop-types';
 import Event from './Event';
-import { users } from '../../data/users/users';
 import { useEventModalStore } from '../../data/eventModal/useEventModalStore';
 
 DayEvents.propTypes = {

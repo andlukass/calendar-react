@@ -21,10 +21,12 @@ function Event({ event, drag, onClick}) {
       <Box ref={eventContainerRef} onClick={onClick}
         sx={containerStyle(eventProps, drag)}
         onDragLeave={handleDragLeave}
-        onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
-        <Box sx={cellStyle} draggable onDragStart={(e)=>{handleDragStart(e, -1)}}>
+        <Box sx={cellStyle} draggable
+        onDragOver={(e)=>handleDragOver(e, event.start)}
+        
+        onDragStart={(e)=>{handleDragStart(e, -1)}}>
           <Typography variant='body1' sx={titleStyle}>
             {event.title}
           </Typography>
@@ -32,6 +34,7 @@ function Event({ event, drag, onClick}) {
         { eventProps.size > 1 &&
           Array.from({ length: (eventProps.size - 1) }, (_, index) => index + 1).map((item, index) => (
             <Box key={index} sx={cellStyle} draggable
+              onDragOver={(e)=>handleDragOver(e, event.start+index+1)}
               onDragStart={(e)=>{handleDragStart(e, index)}}
             />
           ))
@@ -59,7 +62,9 @@ const cellStyle = {
 }
 
 const containerStyle = (eventProps, drag) => ({
-  pointerEvents: drag ? ((eventProps.isDragging) ? "none" : "auto") : "none",
+  pointerEvents: drag ? ((drag.dragEvent === 1
+    && eventProps.id !== drag.dragEvent
+  ) ? "none" : "auto") : "none",
   textAlign: "center",
   whiteSpace: 'pre-line',
   cursor: 'pointer',
