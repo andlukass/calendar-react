@@ -34,15 +34,15 @@ function useEvent({ event, drag }) {
     const duration = event.end - event.start;
     const diff = Math.abs(event.start - drag.eventDragStart);
     const start = drag.dragEnd - diff;
+    const end = start + duration;
     const eventDate = new Date(`${drag.dragYear}/${drag.dragMonth}/${drag.dragDay}`);
     let newEvent = {
       id: event.id,
       user: event.user,
       description: event.description,
-      start: start,
-      end: start + duration,
+      start: start < 0 ? 0 : start,
+      end: end > 47 ? 47 : end,
       date: eventDate,
-      endDay: eventDate,
     }
     editEvent(newEvent);
   }

@@ -23,7 +23,6 @@ function HourCell({ date, hour, drag }) {
       start: eventStart,
       end: eventEnd,
       date: eventDate,
-      endDay: eventDate,
     });
     stopDraggin();
   };
