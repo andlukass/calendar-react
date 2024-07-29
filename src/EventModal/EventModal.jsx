@@ -34,7 +34,7 @@ function EventModal( ) {
       const user = event.id ? users.find((user) => user.id === event.user).name : '';
       form.setValue('id', event.id);
       form.setValue('title', event.title);
-      form.setValue('day', event.day);
+      form.setValue('date', event.date);
       form.setValue('start', getHourByIndex(start));
       form.setValue('end', getHourByIndex(end));
       form.setValue('user', user);
@@ -63,7 +63,7 @@ function EventModal( ) {
                 <Typography><b>Colaborador</b></Typography>
                 <AutocompleteRegister fieldName='user' options={users.map(user => user.name)} form={form} />
                 <Typography><b>Data</b></Typography>
-                <Typography>{form.getValues('day')}</Typography>
+                <Typography>{form.getValues('date') &&form.getValues('date').getDate() }</Typography>
                 <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                 <AutocompleteRegister
                 width={130}

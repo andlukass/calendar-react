@@ -4,11 +4,15 @@ import { removeDragImage } from './utils/removeDragImage';
 function useDrag() {
   const [dragStart, setDragStart] = useState(-1);
   const [eventDragStart, setEventDragStart] = useState(-1);
+  const [dragMonth, setDragMonth] = useState(-1);
+  const [dragYear, setDragYear] = useState(-1);
   const [dragEnd, setDragEnd] = useState(-1);
   const [dragDay, setDragDay] = useState(-1);
 
-  const updateEnd = (day, end) => {
+  const updateEnd = (day, month, year, end) => {
     if (eventDragStart !== -1 && day !== dragDay) setDragDay(day);
+    if (eventDragStart !== -1 && month !== dragMonth) setDragMonth(month);
+    if (eventDragStart !== -1 && year !== dragYear) setDragYear(year);
     if (end !== dragEnd) setDragEnd(end);
   }
 
@@ -27,6 +31,7 @@ function useDrag() {
   const stopDraggin = () => {
     setDragStart(-1);
     setEventDragStart(-1);
+    setDragMonth(-1);
     setDragEnd(-1);
     setDragDay(-1);
     // console.log('dragging started at: ', dragStart,
@@ -43,6 +48,8 @@ function useDrag() {
     startDraggin,
     stopDraggin,
     updateEnd,
+    dragMonth,
+    dragYear,
     dragEnd,
     dragDay,
   };

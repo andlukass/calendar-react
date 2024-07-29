@@ -15,7 +15,8 @@ function Hours({ date, drag, events }) {
 
   const day = date.getDate();
   const dayEvents = events.filter((event) => 
-    (event.day === day) && (event.date.getMonth() === date.getMonth()
+    event.date && (event.date.getDate() === day) && (event.date.getMonth() ===
+   date.getMonth()
     && event.date.getFullYear() === date.getFullYear()));
 
   const isOverlapping = (a, b) => {
@@ -89,7 +90,7 @@ function Hours({ date, drag, events }) {
       <DayTitle date={date} />
       {hourIndexes.map((hour) => (
         <div key={hour} style={{position: "relative"}}>
-          <HourCell hour={hour} drag={drag} day={day} />
+          <HourCell hour={hour} drag={drag} date={date} />
           <DayEvents day={day} hour={hour} drag={drag} events={dayEventsVerified} />
           <EventSelector hour={hour} drag={drag} day={day} />
         </div>

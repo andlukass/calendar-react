@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { useEventModalStore } from '../../data/eventModal/useEventModalStore';
 
 HourCell.propTypes = {
-  day: PropTypes.number.isRequired,
+  date: PropTypes.instanceOf(Date),
   hour: PropTypes.number.isRequired,
   drag: PropTypes.object.isRequired,
 };
-function HourCell({ day, hour, drag }) {
+function HourCell({ date, hour, drag }) {
   
   const { dragStart, startDraggin, stopDraggin, updateEnd } = drag;
   const setEvent = useEventModalStore((state) => state.setEvent);
@@ -16,16 +16,20 @@ function HourCell({ day, hour, drag }) {
   const createEvent = (start) => {
     const eventEnd = Math.max(hour, start);
     const eventStart = Math.min(hour, start);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const eventDate = new Date(`${date.getFullYear()}/${month}/${day}`);
     setEvent({
-      day: day,
       start: eventStart,
       end: eventEnd,
+      date: eventDate,
+      endDay: eventDate,
     });
     stopDraggin();
   };
 
   return (
-    <Box onDragStart={()=>startDraggin(day, hour)}
+    <Box onDragStart={()=>startDraggin(date.getDate(), hour)}
       onDragEnd={()=>{stopDraggin()}}
       onDrop={()=>{
         if (dragStart === -1) return;
@@ -34,7 +38,7 @@ function HourCell({ day, hour, drag }) {
       onClick={()=>createEvent(hour)}
       onDragOver={(e) => {
         e.preventDefault();
-        updateEnd(day, hour);
+        updateEnd(date.getDate(), date.getMonth() + 1, date.getFullYear(), hour);
       }}
       className="draggable-item"
       sx={cellStyle(hour)}
