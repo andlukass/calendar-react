@@ -25,7 +25,6 @@ function DatePickerRegister( {form, fieldName, width, disabled} ) {
                 onChange={(date) => {
                 setValue(fieldName, date);
                 clearErrors(fieldName);
-
               }}
               sx={{ 
                 ...(errors[fieldName] ? muiInputBorderErrorSx : {}),

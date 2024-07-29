@@ -5,7 +5,7 @@ import { Button, Typography } from '@mui/material';
 import { users } from '../data/users/users';
 import { getHourByIndex } from '../Week/Hours/utils/getHourByIndex';
 import { useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import AutocompleteRegister from '../components/inputs/AutocompleteRegister';
 import { hourIndexes } from '../Week/Hours/utils/hourIndexes';
 import { getIndexByHour } from '../Week/Hours/utils/getIndexByHour';
@@ -23,25 +23,43 @@ function EventModal( ) {
   const [event, setEvent] = useEventModalStore((state) =>
     [state.event, state.setEvent]);
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const form = useForm();
 
   const handleClose = () => {
+    form.reset({
+      title: '',
+      user: '',
+      id: '',
+      date: null,
+      start: '',
+      end: '',
+      description: '',
+    });
     setEvent(false);
   }
 
   useEffect(() => {
     if (event) {
       const start = event.start ? event.start : 0;
-      const end = event.end + 1;
-      const user = event.id ? users.find((user) => user.id === event.user).name : '';
-      form.setValue('id', event.id);
-      form.setValue('title', event.title);
-      form.setValue('date', dayjs(event.date));
       form.setValue('start', getHourByIndex(start));
-      form.setValue('end', getHourByIndex(end));
-      form.setValue('user', user);
     }
   }, [event]);
+
+  useEffect(() => {
+    if (event && form.getValues('start')) {
+      const end = event.end + 1;
+      const user = event.id ? users.find((user) => user.id === event.user).name : '';
+      form.setValue('title', event.title);
+      form.setValue('id', event.id);
+      form.setValue('date', dayjs(event.date));
+      form.setValue('end', getHourByIndex(end));
+      form.setValue('user', user);
+      form.setValue('description', event.description);
+    }
+    setIsLoading(false);
+  }, [form.getValues('start')]);
 
   const onSave = () => {
     let event = form.getValues();
@@ -57,9 +75,23 @@ function EventModal( ) {
     setEvent(false);
   }
 
+  const getEndOptions = (start) => {
+    const startIndex = getIndexByHour(start);
+    const endIndex = getIndexByHour(form.getValues('end'));
+    if (startIndex >= endIndex) {
+      form.setValue('end', getHourByIndex(startIndex + 1));
+    }
+    return hourIndexesToHours(
+      Array.from({ length: 48 - startIndex }, (_, index) => index + startIndex + 1)
+    );
+  }
+
+  if (isLoading) return <p>Loading...</p>;
+
   return (
     <>
         <Modal open={event&& true} onClose={handleClose}>
+        <form>
             <Box sx={modalStyles}>
                 <Typography><b>Titulo</b></Typography>
                 <TextInputRegister fieldName='title' form={form} />
@@ -77,7 +109,7 @@ function EventModal( ) {
               <AutocompleteRegister
                 width={130}
                 fieldName='end'
-                options={hourIndexesToHours(hourIndexes)} 
+                options={getEndOptions(form.getValues('start'))}
                 form={form} />
                 </Box>
                 <Typography><b>Descrição</b></Typography>
@@ -88,6 +120,7 @@ function EventModal( ) {
                     Salvar
                   </Button>
               </Box>
+        </form>
         </Modal>
     </>
   );
