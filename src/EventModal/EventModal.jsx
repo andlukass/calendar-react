@@ -13,6 +13,8 @@ import { hourIndexesToHours } from '../Week/Hours/utils/hourIndexesToHours';
 import { useEventsStore } from '../data/events/useEventsStore';
 import TextInputRegister from '../components/inputs/TextInputRegister';
 
+import DatePickerRegister from '../components/inputs/DatePickerRegister';
+import dayjs from 'dayjs';
 
 function EventModal( ) {
 
@@ -34,7 +36,7 @@ function EventModal( ) {
       const user = event.id ? users.find((user) => user.id === event.user).name : '';
       form.setValue('id', event.id);
       form.setValue('title', event.title);
-      form.setValue('date', event.date);
+      form.setValue('date', dayjs(event.date));
       form.setValue('start', getHourByIndex(start));
       form.setValue('end', getHourByIndex(end));
       form.setValue('user', user);
@@ -45,6 +47,7 @@ function EventModal( ) {
     let event = form.getValues();
     event.start = (getIndexByHour(event.start));
     event.end = (getIndexByHour(event.end)-1);
+    event.date = new Date(event.date.format('YYYY-MM-DD'));
     event.user = users.find((user) => user.name === event.user).id;
     if (event.id) editEvent(event);
     else {
@@ -63,8 +66,8 @@ function EventModal( ) {
                 <Typography><b>Colaborador</b></Typography>
                 <AutocompleteRegister fieldName='user' options={users.map(user => user.name)} form={form} />
                 <Typography><b>Data</b></Typography>
-                <Typography>{form.getValues('date') &&form.getValues('date').getDate() }</Typography>
-                <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                <DatePickerRegister form={form} fieldName='date' />
+                <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 1}}>
                 <AutocompleteRegister
                 width={130}
                 fieldName='start'
