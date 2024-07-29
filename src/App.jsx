@@ -33,6 +33,14 @@ function App() {
     }
     return "";
   }
+  const getYear = (week) => {
+    const lastDay = new Date(week);
+    lastDay.setDate(week.getDate() + 6);
+    if (lastDay.getMonth() !== week.getMonth()) {
+      return lastDay.getFullYear();
+    }
+    return week.getFullYear();
+  }
 
   return (
     <>
@@ -42,7 +50,7 @@ function App() {
         <Typography variant='h6' sx={{cursor: "pointer", p: 0.5}} onClick={()=>handleWeekChange(false)}> {"<"} </Typography>
         <Typography variant='h6' sx={{cursor: "pointer", p: 0.5}} onClick={()=>handleWeekChange(true)}> {">"} </Typography>
         <Typography variant='h6' sx={{p: 0.5, width: 500}}>{getMonthName(currentWeek) + getNextMonth(currentWeek) + " " +
-          currentWeek.getFullYear()}</Typography>
+           getYear(currentWeek)}</Typography>
           <ModeButton mode={mode} setMode={setMode} />
       </Box>
       {mode === "week" ? <Week currentWeek={currentWeek} /> :
