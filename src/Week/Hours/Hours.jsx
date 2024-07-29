@@ -98,11 +98,10 @@ function Hours({ date, drag, events }) {
       scrollToRef();
     }, 100);
     return () => interval;
-  }, []);
+  }, [date]);
 
   return (
     <div style={{position: "relative"}}>
-      <p onClick={scrollToRef}>KKK</p>
       <DayTitle date={date} />
       <Needle date={date} needleRef={needleRef} />
       {hourIndexes.map((hour) => (
