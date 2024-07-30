@@ -62,8 +62,8 @@ const cellStyle = {
 }
 
 const containerStyle = (eventProps, drag) => ({
-  pointerEvents: drag ? ((drag.dragEvent === 1
-    && eventProps.id !== drag.dragEvent
+  pointerEvents: drag ? ((drag.dragEvent.current === 1
+    && eventProps.id !== drag.dragEvent.current
   ) ? "none" : "auto") : "none",
   textAlign: "center",
   whiteSpace: 'pre-line',

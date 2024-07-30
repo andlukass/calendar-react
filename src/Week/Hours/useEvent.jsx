@@ -29,14 +29,14 @@ function useEvent({ event, drag }) {
   }
 
   const createEvent = () => {
-    if (drag.eventDragStart < 0 || drag.eventDragStart > 47) return;
-    if (drag.dragEnd < 0 || drag.dragEnd > 47) return;
-    if (drag.dragDay < 0 || drag.dragDay > 31) return;
+    if (drag.eventDragStart.current < 0 || drag.eventDragStart.current > 47) return;
+    if (drag.dragEnd.current < 0 || drag.dragEnd.current > 47) return;
+    if (drag.dragDay.current < 0 || drag.dragDay.current > 31) return;
     const duration = event.end - event.start;
-    const diff = Math.abs(event.start - drag.eventDragStart);
-    const start = drag.dragEnd - diff;
+    const diff = Math.abs(event.start - drag.eventDragStart.current);
+    const start = drag.dragEnd.current - diff;
     const end = start + duration;
-    const eventDate = new Date(`${drag.dragYear}/${drag.dragMonth}/${drag.dragDay}`);
+    const eventDate = new Date(`${drag.dragYear.current}/${drag.dragMonth.current}/${drag.dragDay.current}`);
     let newEvent = {
       id: event.id,
       user: event.user,

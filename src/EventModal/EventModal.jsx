@@ -78,6 +78,7 @@ function EventModal( ) {
   const getEndOptions = (start) => {
     const startIndex = getIndexByHour(start);
     const endIndex = getIndexByHour(form.getValues('end'));
+    if (startIndex === -1 || endIndex === -1) return [];
     if (startIndex >= endIndex) {
       form.setValue('end', getHourByIndex(startIndex + 1));
     }

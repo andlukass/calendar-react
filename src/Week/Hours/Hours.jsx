@@ -90,10 +90,13 @@ function Hours({ date, drag, events }) {
   const dayEventsVerified = getEventsProps(dayEvents);
 
   const scrollToRef = () => {
-    // needleRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    console.log(needleRef)
+    if (!needleRef.current) return;
+    needleRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   useEffect(() => {
+    console.log("loaded")
     const interval = setTimeout(() => {
       scrollToRef();
     }, 100);
@@ -107,7 +110,7 @@ function Hours({ date, drag, events }) {
       {hourIndexes.map((hour) => (
         <div key={hour} style={{position: "relative"}}>
           <HourCell hour={hour} drag={drag} date={date} />
-          <DayEvents day={day} hour={hour} drag={drag} events={dayEventsVerified} />
+          <DayEvents hour={hour} drag={drag} events={dayEventsVerified} />
           <EventSelector hour={hour} drag={drag} day={day} />
         </div>
       ))}

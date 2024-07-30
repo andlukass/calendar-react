@@ -13,27 +13,27 @@ function EventSelector({ hour, day, drag }) {
   const { eventDragStart, dragStart, dragEnd, dragDay } = drag;
 
   const getStart = () => {
-    return dragStart - dragEnd < 0 ? dragStart : dragEnd;
+    return dragStart.current - dragEnd.current < 0 ? dragStart.current : dragEnd.current;
   }
 
   const getEnd = () => {
-    return dragStart - dragEnd < 0 ? dragEnd : dragStart
+    return dragStart.current - dragEnd.current < 0 ? dragEnd.current : dragStart.current
   }
 
-  const title = Math.abs(dragStart - dragEnd) === 0 ? `Novo Evento, ${getHourByIndex(dragStart)}`
+  const title = Math.abs(dragStart.current - dragEnd.current) === 0 ? `Novo Evento, ${getHourByIndex(dragStart.current)}`
     : `Novo Evento\n${getHourByIndex(getStart())} - ${getHourByIndex(getEnd() + 1)}`;
 
     const event = {
       start: getStart(),
       title: title,
       end: getEnd(),
-      day: dragDay,
+      day: dragDay.current,
       width: 120,
     }
 
   return (
     <>
-      { eventDragStart === -1 && hour === getStart() && day === dragDay &&
+      { eventDragStart.current === -1 && hour === getStart() && day === dragDay.current &&
       <Event event={event} />}
     </>
   )

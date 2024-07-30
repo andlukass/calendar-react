@@ -1,44 +1,42 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { removeDragImage } from './utils/removeDragImage';
 
 function useDrag() {
-  const [dragStart, setDragStart] = useState(-1);
-  const [dragEvent, setDragEvent] = useState(-1);
-  const [eventDragStart, setEventDragStart] = useState(-1);
-  const [dragMonth, setDragMonth] = useState(-1);
-  const [dragYear, setDragYear] = useState(-1);
-  const [dragEnd, setDragEnd] = useState(-1);
-  const [dragDay, setDragDay] = useState(-1);
+  const dragStart = useRef(-1);
+  const dragEnd = useRef(-1);
+  const dragMonth = useRef(-1);
+  const dragYear = useRef(-1);
+  const dragDay = useRef(-1);
+  const dragEvent = useRef(-1);
+  const eventDragStart = useState(-1);
 
   const updateEnd = (day, month, year, end) => {
-    if (eventDragStart !== -1 && day !== dragDay) setDragDay(day);
-    if (eventDragStart !== -1 && month !== dragMonth) setDragMonth(month);
-    if (eventDragStart !== -1 && year !== dragYear) setDragYear(year);
-    if (end !== dragEnd) setDragEnd(end);
+    if (eventDragStart.current !== -1 && day !== dragDay.current) dragDay.current = day;
+    if (eventDragStart.current !== -1 && month !== dragMonth.current) dragMonth.current = month;
+    if (eventDragStart.current !== -1 && year !== dragYear.current) dragYear.current = year;
+    if (end !== dragEnd) dragEnd.current = end;
   }
 
   const startDraggin = (day, start) => {
-    setDragStart(start);
-    setDragDay(day);
+    dragStart.current = start;
+    dragDay.current = day;
     // console.log('dragging started at: ', start, ' on day: ', day);
   }
 
   const startEventDraggin = (day, start, id) => {
-    setEventDragStart(start);
-    setDragDay(day);
-    setDragEvent(id);
-    // console.log('dragging started at: ', start, ' on day: ', day);
+    eventDragStart.current = start;
+    dragDay.current = day;
+    dragEvent.current = id;
   }
 
   const stopDraggin = () => {
-    setDragStart(-1);
-    setEventDragStart(-1);
-    setDragMonth(-1);
-    setDragEnd(-1);
-    setDragDay(-1);
-    setDragEvent(-1);
-    // console.log('dragging started at: ', dragStart,
-    // 'and ended at: ', end, ' on day: ', dragDay);
+    dragStart.current = -1;
+    eventDragStart.current = -1;
+    dragMonth.current = -1;
+    dragEnd.current = -1;
+    dragYear.current = -1;
+    dragDay.current = -1;
+    dragEvent.current = -1;
   }
 
   useEffect(() => {

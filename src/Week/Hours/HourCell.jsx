@@ -31,8 +31,8 @@ function HourCell({ date, hour, drag }) {
     <Box onDragStart={()=>startDraggin(date.getDate(), hour)}
       onDragEnd={()=>{stopDraggin()}}
       onDrop={()=>{
-        if (dragStart === -1) return;
-        createEvent(dragStart)
+        if (dragStart.current === -1) return;
+        createEvent(dragStart.current)
       }}
       onClick={()=>createEvent(hour)}
       onDragOver={(e) => {
