@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 
 ModeButton.propTypes = {
   mode: PropTypes.string.isRequired,
-  setMode: PropTypes.func.isRequired,
+  changeMode: PropTypes.func.isRequired,
 };
-function ModeButton({mode, setMode}) {
+function ModeButton({mode, changeMode}) {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -20,7 +20,7 @@ function ModeButton({mode, setMode}) {
   };
 
   const handleModeChange = (mode) => {
-    setMode(mode);
+    changeMode(mode);
     handleClose();
   }
 
