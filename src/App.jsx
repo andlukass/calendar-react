@@ -13,7 +13,8 @@ function App() {
 
   const changeMode = (mode) => {
     const tempDate = new Date(currentDate);
-    tempDate.setDate(15);
+    if (mode === "month") tempDate.setDate(15);
+    if (mode === "week") tempDate.setDate(1);
     setToday(tempDate);
     setMode(mode);
   }
@@ -38,10 +39,20 @@ function App() {
     setToday(tempDate);
   }
 
-  const getNextMonth = (week) => {
-    const lastDay = new Date(week);
-    lastDay.setDate(week.getDate() + 6);
-    if (lastDay.getMonth() !== week.getMonth()) {
+  const getInitialMonth = (currentDate) => {
+    const firstDay = new Date(
+      currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay()
+    );
+    return getMonthName(firstDay)
+  }
+
+  const getNextMonth = (currentDate) => {
+    const firstDay = new Date(
+      currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay()
+    );
+    const lastDay = new Date(currentDate);
+    lastDay.setDate(currentDate.getDate() + 6);
+    if (lastDay.getMonth() !== firstDay.getMonth()) {
       return " - " + getMonthName(lastDay);
     }
     return "";
@@ -78,14 +89,18 @@ function App() {
           {">"}
         </Typography>
 
-        <Typography variant='h6' sx={{p: 0.5, width: 500}}>{getMonthName(currentDate) + getNextMonth(currentDate) + " " +
+        <Typography variant='h6' sx={{p: 0.5, width: 500}}>
+          {getInitialMonth(currentDate) + getNextMonth(currentDate) + " " +
            getYear(currentDate)}</Typography>
 
         <ModeButton mode={mode} changeMode={changeMode} />
 
       </Box>
 
-      {mode === "week" ? <Week currentDate={currentDate} /> : <Month />}
+      {mode === "week" ?
+        <Week currentDate={currentDate} /> :
+        <Month currentDate={currentDate} />
+      }
     </>
   )
 }
