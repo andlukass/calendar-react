@@ -10,18 +10,16 @@ HourCell.propTypes = {
 };
 function HourCell({ date, hour, drag }) {
   
-  const { dragStart, startDraggin, stopDraggin, updateEnd } = drag;
+  const { dragEnd, dragStart, startDraggin, stopDraggin, updateEnd } = drag;
   const setEvent = useEventModalStore((state) => state.setEvent);
 
-  const createEvent = (start) => {
-    const eventEnd = Math.max(hour, start);
-    const eventStart = Math.min(hour, start);
+  const createEvent = (start, end) => {
     const month = date.getMonth() + 1;
     const day = date.getDate();
     const eventDate = new Date(`${date.getFullYear()}/${month}/${day}`);
     setEvent({
-      start: eventStart,
-      end: eventEnd,
+      start: start,
+      end: end,
       date: eventDate,
     });
     stopDraggin();
@@ -29,10 +27,9 @@ function HourCell({ date, hour, drag }) {
 
   return (
     <Box onDragStart={()=>startDraggin(date.getDate(), hour)}
-      onDragEnd={()=>{stopDraggin()}}
-      onDrop={()=>{
-        if (dragStart.current === -1) return;
-        createEvent(dragStart.current)
+      onDragEnd={()=>{
+        createEvent(dragStart.current, dragEnd.current);
+        stopDraggin();
       }}
       onClick={()=>createEvent(hour)}
       onDragOver={(e) => {

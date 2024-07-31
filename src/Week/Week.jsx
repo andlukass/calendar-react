@@ -33,7 +33,7 @@ function Week({ currentWeek }) {
       <Box id="hide-scroll" sx={{display: "flex", overflow: "auto", height: "90vh", position: "relative"}}>
         <HourMeter />
         {weekDays.map((date, index) => (
-          <Hours events={events} drag={drag} date={date} key={index} />
+          <Hours events={events} currentWeek={currentWeek} drag={drag} date={date} key={index} />
         ))}
       </Box>
     </>

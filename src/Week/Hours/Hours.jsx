@@ -12,8 +12,9 @@ Hours.propTypes = {
   date: PropTypes.instanceOf(Date),
   drag: PropTypes.object.isRequired,
   events: PropTypes.array.isRequired,
+  currentWeek: PropTypes.instanceOf(Date),
 };
-function Hours({ date, drag, events }) {
+function Hours({ date, drag, events, currentWeek }) {
 
   const needleRef = useRef(null);
 
@@ -90,18 +91,16 @@ function Hours({ date, drag, events }) {
   const dayEventsVerified = getEventsProps(dayEvents);
 
   const scrollToRef = () => {
-    // console.log(needleRef)
     if (!needleRef.current) return;
-    // needleRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    needleRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   useEffect(() => {
-    console.log("loaded")
     const interval = setTimeout(() => {
       scrollToRef();
     }, 100);
     return () => interval;
-  }, [date]);
+  }, [currentWeek]);
 
   return (
     <div style={{position: "relative"}}>

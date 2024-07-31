@@ -64,7 +64,7 @@ const cellStyle = {
   border: "0.5pt solid transparent",
 }
 
-const containerStyle = (eventProps, drag,isDragging) => ({
+const containerStyle = (eventProps, drag) => ({
   pointerEvents: "auto",
   textAlign: "center",
   whiteSpace: 'pre-line',

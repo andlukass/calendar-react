@@ -8,19 +8,20 @@ function useDrag() {
   const dragYear = useRef(-1);
   const dragDay = useRef(-1);
   const dragEvent = useRef(-1);
-  const eventDragStart = useState(-1);
+  const eventDragStart = useRef(-1);
+  const [eventSelectorEnd, setEventSelectorEnd] = useState(-1);
 
   const updateEnd = (day, month, year, end) => {
     if (eventDragStart.current !== -1 && day !== dragDay.current) dragDay.current = day;
     if (eventDragStart.current !== -1 && month !== dragMonth.current) dragMonth.current = month;
     if (eventDragStart.current !== -1 && year !== dragYear.current) dragYear.current = year;
+    if (dragStart.current !== -1) setEventSelectorEnd(end);
     if (end !== dragEnd) dragEnd.current = end;
   }
 
   const startDraggin = (day, start) => {
     dragStart.current = start;
     dragDay.current = day;
-    // console.log('dragging started at: ', start, ' on day: ', day);
   }
 
   const startEventDraggin = (day, start, id) => {
@@ -37,6 +38,7 @@ function useDrag() {
     dragYear.current = -1;
     dragDay.current = -1;
     dragEvent.current = -1;
+    setEventSelectorEnd(-1);
   }
 
   useEffect(() => {
@@ -45,6 +47,7 @@ function useDrag() {
 
   return { dragStart,
     startEventDraggin,
+    eventSelectorEnd,
     eventDragStart,
     startDraggin,
     stopDraggin,

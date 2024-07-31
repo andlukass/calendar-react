@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { useEventsStore } from '../../data/events/useEventsStore';
 import { users } from '../../data/users/users';
 
@@ -6,10 +6,8 @@ function useEvent({ event, drag }) {
 
   const editEvent = useEventsStore((state) => state.editEvent);
 
-  const [opacity, setOpacity] = useState(1);
-
-  const eventContainerRef = useRef(null);
-  const containerImg = useRef(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [opacity, setOpacity] = useState(1);
 
   const eventSize = event.end + 1 - event.start;
   const width = !drag ? 120 : event.width;
@@ -35,6 +33,7 @@ function useEvent({ event, drag }) {
     let newEvent = {
       id: event.id,
       user: event.user,
+      title: event.title,
       description: event.description,
       start: start < 0 ? 0 : start,
       end: end > 47 ? 47 : end,
@@ -45,29 +44,25 @@ function useEvent({ event, drag }) {
 
   const handleDragOver = (e, end) => {
     e.preventDefault();
+    if (!event.date) return;
     drag.updateEnd(event.date.getDate(), event.date.getMonth() + 1, event.date.getFullYear()
     , end)
   }
 
   const handleDragEnd = () => {
     setOpacity(1);
+    setIsDragging(false);
     createEvent();
     drag.stopDraggin();
   }
 
   const handleDragStart = async (e, index) => {
-    // await getGhostImg(eventContainerRef, containerImg);
-    console.log(containerImg)
     drag.startEventDraggin(event.day, event.start + index + 1, event.id);
-    // changeGhostImg(e, containerImg, 0, ((index+1)*27));
+    setIsDragging(true);
     setOpacity(0.5);
   }
 
-  // useEffect(() => {
-  //   getGhostImg(eventContainerRef, containerImg);
-  // }, [event]);
-
-  return { eventContainerRef,
+  return { isDragging,
     handleDragStart,
     handleDragOver,
     handleDragEnd,
