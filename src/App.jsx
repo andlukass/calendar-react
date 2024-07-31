@@ -42,11 +42,17 @@ function App() {
     return week.getFullYear();
   }
 
+  const goToday = () => {
+    const week = new Date(baseWeek);
+    week.setSeconds(Math.random() * 60);
+    setCurrentWeek(week);
+  }
+
   return (
     <>
       <EventModal />
       <Box sx={{display: "flex", gap: 3, m: 2, userSelect: "none"}}>
-        <Button variant="outlined" onClick={()=>setCurrentWeek(baseWeek)}>Hoje</Button>
+        <Button variant="outlined" onClick={goToday}>Hoje</Button>
         <Typography variant='h6' sx={{cursor: "pointer", p: 0.5}} onClick={()=>handleWeekChange(false)}> {"<"} </Typography>
         <Typography variant='h6' sx={{cursor: "pointer", p: 0.5}} onClick={()=>handleWeekChange(true)}> {">"} </Typography>
         <Typography variant='h6' sx={{p: 0.5, width: 500}}>{getMonthName(currentWeek) + getNextMonth(currentWeek) + " " +
