@@ -7,7 +7,7 @@ function HourMeter() {
   return (
     <>
       <Box sx={containerStyle}>
-        <Box width={60} height={40} sx={marginBoxStyle} />
+        <Box width={60} height={60} sx={marginBoxStyle} />
         {hourIndexes.map((hour) => (
           <Box key={hour} sx={cellStyle}>
             <Typography sx={labelStyle}>
@@ -43,7 +43,7 @@ const cellStyle = {
 }
 
 const labelStyle = {
-  mt: -1.3,
+  mt: -1,
   pr: 1,
   textAlign: "end",
   color: "#767676",

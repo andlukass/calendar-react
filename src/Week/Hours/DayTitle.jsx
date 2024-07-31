@@ -7,15 +7,23 @@ DayTitle.propTypes = {
 };
 function DayTitle({ date }) {
 
+  const isToday = () => {
+    const today = new Date();
+    return date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear();
+  }
+
   return (
       <Box sx={containerStyle}>
           <Box sx={cellStyle} height={20}>
-            <Typography variant="body2" sx={{fontSize: 12}}>
+            <Typography variant="body2"
+              sx={{fontSize: 12, color: isToday() ? "#5667c5" : "#656464"}}>
               {getDayName(date)}
             </Typography>
           </Box>
-          <Box sx={cellStyle} height={20}>
-            <Typography variant="h4" sx={{color: "#656464"}}>
+          <Box sx={cellStyle} height={30} pb={1.2}>
+            <Typography variant="h4" sx={textStyle(isToday())}>
               {date.getDate()}
             </Typography>
           </Box>
@@ -23,12 +31,27 @@ function DayTitle({ date }) {
   )
 }
 
+const textStyle = (isToday) => ({
+  color: isToday ? "#ffffff" : "#656464",
+  backgroundColor: isToday ? "#5667c5" : "transparent",
+  fontSize: 25,
+  width: 40,
+  height: 40,
+  borderRadius: 50,
+  fontWeight: isToday ? 300 : 500,
+  userSelect: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+})
+
 const containerStyle = {
   display: "flex",
   flexDirection: "column",
   position: "sticky",
   top: 0,
   zIndex: 91,
+  borderBottom: "0.5px solid #656464"
 };
 
 const cellStyle = {
@@ -39,6 +62,7 @@ const cellStyle = {
   backgroundColor: "white",
   minWidth: 120,
   border: "0.5pt solid transparent",
+
 };
 
 export default DayTitle;

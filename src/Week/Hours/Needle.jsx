@@ -11,7 +11,7 @@ function Needle({ date, needleRef }) {
 
   const hours = new Date().getHours();
   const minutes = new Date().getMinutes();
-  const daysTitleSize = 70;
+  const daysTitleSize = 103;
   const hoursSize = (hours * 50) + daysTitleSize;
   const minutesSize = (minutes * 50) / 60;
   const top = hoursSize + minutesSize;
