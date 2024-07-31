@@ -19,7 +19,7 @@ function HourCell({ date, hour, drag }) {
     const eventDate = new Date(`${date.getFullYear()}/${month}/${day}`);
     setEvent({
       start: start,
-      end: end,
+      end: end ? end : start,
       date: eventDate,
     });
     stopDraggin();
