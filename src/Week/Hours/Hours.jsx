@@ -90,9 +90,9 @@ function Hours({ date, drag, events }) {
   const dayEventsVerified = getEventsProps(dayEvents);
 
   const scrollToRef = () => {
-    console.log(needleRef)
+    // console.log(needleRef)
     if (!needleRef.current) return;
-    needleRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // needleRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   useEffect(() => {
