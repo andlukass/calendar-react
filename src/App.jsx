@@ -7,22 +7,15 @@ import { Box, Button, Typography } from '@mui/material';
 import ModeButton from './ModeButton';
 
 function App() {
-
-  const today = new Date();
-
-  const baseWeek = new Date(
-    today.getFullYear(), today.getMonth(), today.getDate() - today.getDay()
-  );
-  
   
   const [mode, setMode] = useState("week");
-  const [currentWeek, setCurrentWeek] = useState(baseWeek);
+  const [today, setToday] = useState(new Date());
 
-  const handleWeekChange = (front) => {
+  const handleDateChange = (front) => {
     const diff = front ? 7 : -7;
-    const newWeekStart = new Date(currentWeek);
-    newWeekStart.setDate(currentWeek.getDate() + diff);
-    setCurrentWeek(newWeekStart)
+    const tempDate = new Date();
+    tempDate.setDate(today.getDate() + diff);
+    setToday(tempDate)
   }
 
   const getNextMonth = (week) => {
@@ -43,9 +36,9 @@ function App() {
   }
 
   const goToday = () => {
-    const week = new Date(baseWeek);
-    week.setSeconds(Math.random() * 60);
-    setCurrentWeek(week);
+    const tempDate = new Date();
+    tempDate.setSeconds(Math.random() * 60);
+    setToday(tempDate);
   }
 
   return (
@@ -53,13 +46,13 @@ function App() {
       <EventModal />
       <Box sx={{display: "flex", gap: 3, m: 2, userSelect: "none"}}>
         <Button variant="outlined" onClick={goToday}>Hoje</Button>
-        <Typography variant='h6' sx={{cursor: "pointer", p: 0.5}} onClick={()=>handleWeekChange(false)}> {"<"} </Typography>
-        <Typography variant='h6' sx={{cursor: "pointer", p: 0.5}} onClick={()=>handleWeekChange(true)}> {">"} </Typography>
-        <Typography variant='h6' sx={{p: 0.5, width: 500}}>{getMonthName(currentWeek) + getNextMonth(currentWeek) + " " +
-           getYear(currentWeek)}</Typography>
+        <Typography variant='h6' sx={{cursor: "pointer", p: 0.5}} onClick={()=>handleDateChange(false)}> {"<"} </Typography>
+        <Typography variant='h6' sx={{cursor: "pointer", p: 0.5}} onClick={()=>handleDateChange(true)}> {">"} </Typography>
+        <Typography variant='h6' sx={{p: 0.5, width: 500}}>{getMonthName(today) + getNextMonth(today) + " " +
+           getYear(today)}</Typography>
           <ModeButton mode={mode} setMode={setMode} />
       </Box>
-      {mode === "week" ? <Week currentWeek={currentWeek} /> :
+      {mode === "week" ? <Week today={today} /> :
       <Month />}
     </>
   )

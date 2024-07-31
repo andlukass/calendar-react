@@ -8,15 +8,18 @@ import { useEventsStore } from "../data/events/useEventsStore";
 import PropTypes from 'prop-types';
 
 Week.propTypes = {
-  currentWeek: PropTypes.instanceOf(Date),
+  today: PropTypes.instanceOf(Date),
 };
-function Week({ currentWeek }) {
+function Week({ today }) {
 
   const events = useEventsStore((state) => state.events);
 
   const drag = useDrag();
 
-  const getWeekDates = (startDate) => {
+  const getWeekDates = (today) => {
+    const startDate = new Date(
+      today.getFullYear(), today.getMonth(), today.getDate() - today.getDay()
+    );
     const weekDays = [];
     for (let i = 0; i < 7; i++) {
       const date = new Date(startDate);
@@ -26,14 +29,14 @@ function Week({ currentWeek }) {
     return weekDays;
   }
 
-  const weekDays = getWeekDates(currentWeek);
+  const weekDays = getWeekDates(today);
 
   return (
     <>
       <Box id="hide-scroll" sx={{display: "flex", overflow: "auto", height: "90vh", position: "relative"}}>
         <HourMeter />
         {weekDays.map((date, index) => (
-          <Hours events={events} currentWeek={currentWeek} drag={drag} date={date} key={index} />
+          <Hours events={events} currentWeek={today} drag={drag} date={date} key={index} />
         ))}
       </Box>
     </>
