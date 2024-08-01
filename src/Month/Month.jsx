@@ -1,8 +1,48 @@
-import { Box, Grid } from "@mui/material"
+import { Box, Grid, Typography } from "@mui/material"
 
-function Month() {
+import PropTypes from 'prop-types';
+import { getDayName } from "../Week/Hours/utils/getDayName";
 
-  const cells = Array.from({ length: 35 }, (_, index) => index + 1) 
+Month.propTypes = {
+  currentDate: PropTypes.instanceOf(Date),
+};
+function Month({ currentDate }) {
+
+  const isToday = (date) => {
+    if (!date) return false;
+    const today = new Date();
+    return date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear();
+  }
+
+  const addDaysToDate = (date, days) => {
+    const newDate = new Date(date);
+    newDate.setDate(date.getDate() + days);
+    return newDate;
+  }
+
+  const firstDayMonth = new Date(
+    currentDate.getFullYear(), currentDate.getMonth(), 1
+  );
+
+  const getFirstDayPage = () => {
+    const day = firstDayMonth.getDay();
+    return addDaysToDate(firstDayMonth, -day);
+  }
+
+  const firstDay = getFirstDayPage();
+
+  const getArrayDays = (firstDay) => {
+    const days = [];
+    for (let i = 0; i < 35; i++) {
+      const date = addDaysToDate(firstDay, i);
+      days.push(date);
+    }
+    return days;
+  }
+
+  const days = getArrayDays(firstDay);
 
   return (
     <>
@@ -13,19 +53,41 @@ function Month() {
           height: "90vh",
           position: "relative", boxShadow: "0 0 0 0.10px #656464"}}>
 
-        { cells.map((cell) => (
-          <Grid item xs={12 / 7} sx={{height:"20%", boxShadow: "0 0 0 0.10px #656464"}} key={cell}>
-
-            <Box key={cell} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-              {cell}
+        { days.map((day, index) => (
+          <Grid item xs={12 / 7} sx={{height:"20%", boxShadow: "0 0 0 0.10px #656464"}} key={index}>
+            {index < 7 && (
+              <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", color: "#656464" }}>
+                {getDayName(day)}
+              </Box>
+            )
+            }
+            <Box key={day} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+              <Typography sx={dayTitleStyle(isToday(day))}>
+                {day.getDate()}
+              </Typography>
             </Box>
           </Grid>
           ))
         }
+
         </Grid>
       </Box>
     </>
   )
 }
+
+const dayTitleStyle = (isToday) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: isToday ? "#3786ed" : "transparent",
+  color: isToday ? "#ffffff" : "#656464",
+  fontSize: 12,
+  width: 17,
+  height: 17,
+  borderRadius: 50,
+  fontWeight: isToday ? 300 : 300,
+  userSelect: "none",
+});
 
 export default Month

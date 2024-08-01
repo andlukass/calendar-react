@@ -18,7 +18,7 @@ function DayTitle({ date }) {
       <Box sx={containerStyle}>
           <Box sx={cellStyle} height={20}>
             <Typography variant="body2"
-              sx={{fontSize: 12, color: isToday() ? "#5667c5" : "#656464"}}>
+              sx={{fontSize: 12, color: isToday() ? "#3786ed" : "#656464"}}>
               {getDayName(date)}
             </Typography>
           </Box>
@@ -33,7 +33,7 @@ function DayTitle({ date }) {
 
 const textStyle = (isToday) => ({
   color: isToday ? "#ffffff" : "#656464",
-  backgroundColor: isToday ? "#5667c5" : "transparent",
+  backgroundColor: isToday ? "#3786ed" : "transparent",
   fontSize: 25,
   width: 40,
   height: 40,
