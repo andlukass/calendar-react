@@ -1,4 +1,5 @@
 export const getHourByIndex = (index, upper) => {
+  if (index === null) return "";
   if (index === 48) return "12am";
   const hours = Math.floor(index / 2);
   const minutes = index % 2 === 0 ? "" : ":30";

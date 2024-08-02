@@ -5,7 +5,7 @@ import { Button, Typography } from '@mui/material';
 import { users } from '../data/users/users';
 import { getHourByIndex } from '../Week/Hours/utils/getHourByIndex';
 import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import AutocompleteRegister from '../components/inputs/AutocompleteRegister';
 import { hourIndexes } from '../Week/Hours/utils/hourIndexes';
 import { getIndexByHour } from '../Week/Hours/utils/getIndexByHour';
@@ -23,7 +23,7 @@ function EventModal( ) {
   const [event, setEvent] = useEventModalStore((state) =>
     [state.event, state.setEvent]);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const currentEnd = useRef(null);
 
   const form = useForm();
 
@@ -42,24 +42,18 @@ function EventModal( ) {
 
   useEffect(() => {
     if (event) {
-      const start = event.start ? event.start : 0;
-      form.setValue('start', getHourByIndex(start));
-    }
-  }, [event]);
-
-  useEffect(() => {
-    if (event && form.getValues('start')) {
-      const end = event.end + 1;
       const user = event.id ? users.find((user) => user.id === event.user).name : '';
+      const eventStart = event.start !== 0 ? event.start : 0;
+      const eventEnd = event.end === null ? null : event.end + 1;
+      form.setValue('date', dayjs(event.date));
+      form.setValue('start', getHourByIndex(eventStart));
       form.setValue('title', event.title);
       form.setValue('id', event.id);
-      form.setValue('date', dayjs(event.date));
-      form.setValue('end', getHourByIndex(end));
       form.setValue('user', user);
+      form.setValue('end', getHourByIndex(eventEnd));
       form.setValue('description', event.description);
     }
-    setIsLoading(false);
-  }, [form.getValues('start')]);
+  }, [event]);
 
   const onSave = () => {
     let event = form.getValues();
@@ -78,7 +72,8 @@ function EventModal( ) {
   const getEndOptions = (start) => {
     const startIndex = getIndexByHour(start);
     const endIndex = getIndexByHour(form.getValues('end'));
-    if (startIndex === -1 || endIndex === -1) return [];
+    currentEnd.current = (getIndexByHour(form.getValues('end')));
+    if (startIndex === -1) return [];
     if (startIndex >= endIndex) {
       form.setValue('end', getHourByIndex(startIndex + 1));
     }
@@ -87,7 +82,11 @@ function EventModal( ) {
     );
   }
 
-  if (isLoading) return <p>Loading...</p>;
+  useEffect(() => {
+    if (form.getValues('start')) {
+      form.setValue('end', getHourByIndex(currentEnd.current));
+    }
+  }, [form.getValues('start')]);
 
   return (
     <>

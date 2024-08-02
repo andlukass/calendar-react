@@ -2,11 +2,16 @@ import { Box, Grid, Typography } from "@mui/material"
 
 import PropTypes from 'prop-types';
 import { getDayName } from "../Week/Hours/utils/getDayName";
+import DayEvents from "./DayEvents";
+import { useEventModalStore } from "../data/eventModal/useEventModalStore";
 
 Month.propTypes = {
   currentDate: PropTypes.instanceOf(Date),
+  events: PropTypes.array,
 };
-function Month({ currentDate }) {
+function Month({ currentDate, events }) {
+
+  const setEvent = useEventModalStore((state) => state.setEvent);
 
   const isToday = (date) => {
     if (!date) return false;
@@ -44,17 +49,34 @@ function Month({ currentDate }) {
 
   const days = getArrayDays(firstDay);
 
+  const createEvent = (e, date) => {
+    e.stopPropagation();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const eventDate = new Date(`${date.getFullYear()}/${month}/${day}`);
+    setEvent({
+      start: null,
+      end: null,
+      date: eventDate,
+    });
+  };
+
   return (
     <>
       <Box id="hide-scroll" >
-        <Grid container sx={{display: "flex",
+        <Grid  id="hide-scroll" container sx={{display: "flex",
           overflow: "auto",
           width: 900,
+          minHeight: "90vh",
           height: "90vh",
           position: "relative", boxShadow: "0 0 0 0.10px #656464"}}>
 
         { days.map((day, index) => (
-          <Grid item xs={12 / 7} sx={{height:"20%", boxShadow: "0 0 0 0.10px #656464"}} key={index}>
+          <Grid item xs={12 / 7} sx={{height:"20%", boxShadow: "0 0 0 0.10px #656464", maxHeight: 180,
+            overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis',
+          }}
+          onClick={(e)=>createEvent(e, day)}
+          key={index}>
             {index < 7 && (
               <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", color: "#656464" }}>
                 <Typography sx={{fontSize: 12}}>
@@ -68,6 +90,9 @@ function Month({ currentDate }) {
                 {day.getDate()}
               </Typography>
             </Box>
+
+            <DayEvents day={day} events={events} />
+
           </Grid>
           ))
         }
