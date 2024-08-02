@@ -1,18 +1,15 @@
 import { Box } from "@mui/material";
 import Hours from "./Hours/Hours";
 import useDrag from "./useDrag";
-
 import HourMeter from "./HourMeter";
-import { useEventsStore } from "../data/events/useEventsStore";
 
 import PropTypes from 'prop-types';
 
 Week.propTypes = {
   currentDate: PropTypes.instanceOf(Date),
+  events: PropTypes.array,
 };
-function Week({ currentDate }) {
-
-  const events = useEventsStore((state) => state.events);
+function Week({ currentDate, events }) {
 
   const drag = useDrag();
 

@@ -57,7 +57,9 @@ function Month({ currentDate }) {
           <Grid item xs={12 / 7} sx={{height:"20%", boxShadow: "0 0 0 0.10px #656464"}} key={index}>
             {index < 7 && (
               <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", color: "#656464" }}>
-                {getDayName(day)}
+                <Typography sx={{fontSize: 12}}>
+                  {getDayName(day)}
+                </Typography>
               </Box>
             )
             }

@@ -5,11 +5,13 @@ import { getMonthName } from './Week/Hours/utils/getMonthName';
 import Month from './Month/Month';
 import { Box, Button, Typography } from '@mui/material';
 import ModeButton from './ModeButton';
+import { useEventsStore } from './data/events/useEventsStore';
 
 function App() {
 
   const [mode, setMode] = useState("week");
   const [currentDate, setToday] = useState(new Date());
+  const events = useEventsStore((state) => state.events);
 
   const changeMode = (mode) => {
     const tempDate = new Date(currentDate);
@@ -98,8 +100,8 @@ function App() {
       </Box>
 
       {mode === "week" ?
-        <Week currentDate={currentDate} /> :
-        <Month currentDate={currentDate} />
+        <Week currentDate={currentDate} events={events} /> :
+        <Month currentDate={currentDate} events={events} />
       }
     </>
   )
