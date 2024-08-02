@@ -1,45 +1,18 @@
-import { useState } from 'react';
-import EventModal from './EventModal/EventModal';
-import Week from './Week/Week';
 import { getMonthName } from './Week/Hours/utils/getMonthName';
-import Month from './Month/Month';
 import { Box, Button, Typography } from '@mui/material';
 import ModeButton from './ModeButton';
-import { useEventsStore } from './data/events/useEventsStore';
 
-function App() {
+import PropTypes from 'prop-types';
 
-  const [mode, setMode] = useState("week");
-  const [currentDate, setToday] = useState(new Date());
-  const events = useEventsStore((state) => state.events);
-
-  const changeMode = (mode) => {
-    const tempDate = new Date(currentDate);
-    if (mode === "month") tempDate.setDate(15);
-    if (mode === "week") tempDate.setDate(1);
-    setToday(tempDate);
-    setMode(mode);
-  }
-
-  const goNext = () => {
-    const tempDate = new Date(currentDate);
-    if (mode === "week") {
-      tempDate.setDate(currentDate.getDate() + 7);
-    } else {
-      tempDate.setMonth(currentDate.getMonth() + 1);
-    }
-    setToday(tempDate);
-  }
-
-  const goPrev = () => {
-    const tempDate = new Date(currentDate);
-    if (mode === "week") {
-      tempDate.setDate(currentDate.getDate() - 7);
-    } else {
-      tempDate.setMonth(currentDate.getMonth() - 1);
-    }
-    setToday(tempDate);
-  }
+Header.propTypes = {
+  mode: PropTypes.string.isRequired,
+  currentDate: PropTypes.object.isRequired,
+  goPrev: PropTypes.func.isRequired,
+  goToday: PropTypes.func.isRequired,
+  goNext: PropTypes.func.isRequired,
+  changeMode: PropTypes.func.isRequired,
+};
+function Header({mode, currentDate, goPrev, goToday, goNext, changeMode}) {
 
   const getInitialMonth = (currentDate) => {
     const firstDay = new Date(
@@ -70,16 +43,8 @@ function App() {
     }
   }
 
-  const goToday = () => {
-    const tempDate = new Date();
-    tempDate.setSeconds(Math.random() * 60);
-    if (mode === "month") tempDate.setDate(15);
-    setToday(tempDate);
-  }
-
   return (
     <>
-      <EventModal />
       <Box sx={{display: "flex", gap: 3, m: 2, userSelect: "none"}}>
 
         <Button variant="outlined" onClick={goToday}>Hoje</Button>
@@ -98,13 +63,8 @@ function App() {
         <ModeButton mode={mode} changeMode={changeMode} />
 
       </Box>
-
-      {mode === "week" ?
-        <Week currentDate={currentDate} events={events} /> :
-        <Month currentDate={currentDate} events={events} />
-      }
     </>
   )
 }
 
-export default App
+export default Header;
