@@ -1,9 +1,11 @@
 import { Grid } from "@mui/material"
 
-import PropTypes from 'prop-types';
-import DayEvents from "./DayEvents";
 import { useEventModalStore } from "../../data/eventModal/useEventModalStore";
+import DayEvents from "./DayEvents";
 import DayTitle from "./DayTitle";
+import { getDaysArray } from "./getDaysArray";
+
+import PropTypes from 'prop-types';
 
 Month.propTypes = {
   currentDate: PropTypes.instanceOf(Date),
@@ -13,33 +15,7 @@ function Month({ currentDate, events }) {
 
   const setEvent = useEventModalStore((state) => state.setEvent);
 
-  const addDaysToDate = (date, days) => {
-    const newDate = new Date(date);
-    newDate.setDate(date.getDate() + days);
-    return newDate;
-  }
-
-  const firstDayMonth = new Date(
-    currentDate.getFullYear(), currentDate.getMonth(), 1
-  );
-
-  const getFirstDayPage = () => {
-    const day = firstDayMonth.getDay();
-    return addDaysToDate(firstDayMonth, -day);
-  }
-
-  const firstDay = getFirstDayPage();
-
-  const getArrayDays = (firstDay) => {
-    const days = [];
-    for (let i = 0; i < 35; i++) {
-      const date = addDaysToDate(firstDay, i);
-      days.push(date);
-    }
-    return days;
-  }
-
-  const days = getArrayDays(firstDay);
+  const days = getDaysArray(currentDate);
 
   const createEvent = (e, date) => {
     e.stopPropagation();
