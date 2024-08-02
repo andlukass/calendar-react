@@ -1,6 +1,6 @@
-import EventModal from './EventModal/EventModal';
+import EventModal from './components/EventModal/EventModal';
 import Week from './Week/Week';
-import Month from './Month/Month';
+import Month from './components/Month/Month';
 import { useEventsStore } from './data/events/useEventsStore';
 import Header from './Header';
 import useCalendarConfig from './useCalendarConfig';
@@ -13,6 +13,7 @@ function Calendar() {
 
   return (
     <>
+
       <EventModal />
 
       <Header goPrev={goPrev}

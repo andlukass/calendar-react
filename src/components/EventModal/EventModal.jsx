@@ -1,19 +1,19 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { useEventModalStore } from '../data/eventModal/useEventModalStore';
+import { useEventModalStore } from '../../data/eventModal/useEventModalStore';
 import { Button, Typography } from '@mui/material';
-import { users } from '../data/users/users';
-import { getHourByIndex } from '../Week/Hours/utils/getHourByIndex';
+import { users } from '../../data/users/users';
+import { getHourByIndex } from '../../Week/Hours/utils/getHourByIndex';
 import { useForm } from 'react-hook-form';
 import { useEffect, useRef } from 'react';
-import AutocompleteRegister from '../components/inputs/AutocompleteRegister';
-import { hourIndexes } from '../Week/Hours/utils/hourIndexes';
-import { getIndexByHour } from '../Week/Hours/utils/getIndexByHour';
-import { hourIndexesToHours } from '../Week/Hours/utils/hourIndexesToHours';
-import { useEventsStore } from '../data/events/useEventsStore';
-import TextInputRegister from '../components/inputs/TextInputRegister';
+import AutocompleteRegister from '../../components/inputs/AutocompleteRegister';
+import { hourIndexes } from '../../Week/Hours/utils/hourIndexes';
+import { getIndexByHour } from '../../Week/Hours/utils/getIndexByHour';
+import { hourIndexesToHours } from '../../Week/Hours/utils/hourIndexesToHours';
+import { useEventsStore } from '../../data/events/useEventsStore';
+import TextInputRegister from '../../components/inputs/TextInputRegister';
 
-import DatePickerRegister from '../components/inputs/DatePickerRegister';
+import DatePickerRegister from '../../components/inputs/DatePickerRegister';
 import dayjs from 'dayjs';
 
 function EventModal( ) {

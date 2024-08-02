@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Box, Menu, MenuItem, Typography } from '@mui/material';
 import { eventOptionStyle } from './eventOptionStyle';
 import EventOption from './EventOption';
-import { useEventModalStore } from '../data/eventModal/useEventModalStore';
+import { useEventModalStore } from '../../data/eventModal/useEventModalStore';
 
 import PropTypes from 'prop-types';
 

@@ -1,9 +1,9 @@
 import { Box, Grid, Typography } from "@mui/material"
 
 import PropTypes from 'prop-types';
-import { getDayName } from "../Week/Hours/utils/getDayName";
 import DayEvents from "./DayEvents";
-import { useEventModalStore } from "../data/eventModal/useEventModalStore";
+import { useEventModalStore } from "../../data/eventModal/useEventModalStore";
+import { getDayName } from "../../Week/Hours/utils/getDayName";
 
 Month.propTypes = {
   currentDate: PropTypes.instanceOf(Date),

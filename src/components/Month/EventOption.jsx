@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material"
 
-import { getHourByIndex } from "../Week/Hours/utils/getHourByIndex";
-import { getColorByUser } from "../Week/Hours/utils/getColorByUser";
-import { useEventModalStore } from "../data/eventModal/useEventModalStore";
+import { getHourByIndex } from "../../Week/Hours/utils/getHourByIndex";
+import { getColorByUser } from "../../Week/Hours/utils/getColorByUser";
+import { useEventModalStore } from "../../data/eventModal/useEventModalStore";
 import { eventOptionStyle } from "./eventOptionStyle";
 
 import PropTypes from 'prop-types';
