@@ -12,18 +12,18 @@ function DayTitle({ index, day }) {
 
   return (
     <>
-          {index < 7 && 
-            <Box sx={dayLabelStyle}>
-              <Typography sx={{fontSize: 12}}>
-                {getDayName(day)}
-              </Typography>
-            </Box>
-          }
-          <Box sx={dayLabelStyle}>
-            <Typography sx={dayTitleStyle(isToday(day))}>
-              {day.getDate()}
-            </Typography>
-          </Box>
+      {index < 7 && 
+        <Box sx={dayLabelStyle}>
+          <Typography sx={{fontSize: 12}}>
+            {getDayName(day)}
+          </Typography>
+        </Box>
+      }
+      <Box sx={dayLabelStyle}>
+        <Typography sx={dayTitleStyle(isToday(day))}>
+          {day.getDate()}
+        </Typography>
+      </Box>
     </>
   )
 }
