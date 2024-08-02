@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useEventsStore } from '../../data/events/useEventsStore';
 import { getColorByUser } from './utils/getColorByUser';
+import { useEventsStore } from '../../../data/events/useEventsStore';
 
 function useEvent({ event, drag }) {
 

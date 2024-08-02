@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 
 import PropTypes from 'prop-types';
-import { useEventModalStore } from '../../data/eventModal/useEventModalStore';
+import { useEventModalStore } from '../../../data/eventModal/useEventModalStore';
 
 HourCell.propTypes = {
   date: PropTypes.instanceOf(Date),

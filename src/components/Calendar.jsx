@@ -1,5 +1,5 @@
 import EventModal from './EventModal/EventModal';
-import Week from '../Week/Week';
+import Week from './Week/Week';
 import Month from './Month/Month';
 import { useEventsStore } from '../data/events/useEventsStore';
 import Header from './Header/Header';

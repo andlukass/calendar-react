@@ -1,4 +1,4 @@
-import { getMonthName } from '../../Week/Hours/utils/getMonthName';
+import { getMonthName } from '../Week/Hours/utils/getMonthName';
 import { Box, Button, Typography } from '@mui/material';
 import ModeButton from '../ModeButton/ModeButton';
 

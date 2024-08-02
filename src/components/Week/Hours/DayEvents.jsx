@@ -1,7 +1,7 @@
 
 import PropTypes from 'prop-types';
 import Event from './Event';
-import { useEventModalStore } from '../../data/eventModal/useEventModalStore';
+import { useEventModalStore } from '../../../data/eventModal/useEventModalStore';
 
 DayEvents.propTypes = {
   hour: PropTypes.number.isRequired,
