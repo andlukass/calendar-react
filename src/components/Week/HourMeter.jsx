@@ -2,7 +2,6 @@ import { Box, Typography } from "@mui/material";
 import { hourIndexes } from "../../utils/hourIndexes";
 import { getHourByIndex } from "../../utils/getHourByIndex";
 
-
 function HourMeter() {
 
   return (

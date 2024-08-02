@@ -1,15 +1,16 @@
 
+import { useEffect, useRef } from 'react';
 import { isToday } from '../../../utils/isToday';
 
 import PropTypes from 'prop-types';
 
 Needle.propTypes = {
   date: PropTypes.instanceOf(Date),
-  needleRef: PropTypes.object,
+  currentDate: PropTypes.instanceOf(Date),
 };
-function Needle({ date, needleRef }) {
+function Needle({ date, currentDate }) {
 
-  if (!isToday(date)) return;
+  const needleRef = useRef(null);
 
   const hours = new Date().getHours();
   const minutes = new Date().getMinutes();
@@ -17,6 +18,20 @@ function Needle({ date, needleRef }) {
   const hoursSize = (hours * 50) + daysTitleSize;
   const minutesSize = (minutes * 50) / 60;
   const top = hoursSize + minutesSize;
+
+  const scrollToRef = () => {
+    if (!needleRef.current) return;
+    needleRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  useEffect(() => {
+    const interval = setTimeout(() => {
+      scrollToRef();
+    }, 100);
+    return () => interval;
+  }, [currentDate]);
+
+  if (!isToday(date)) return;
 
   return (
     <div style={{...needleStyle, top: top}}>

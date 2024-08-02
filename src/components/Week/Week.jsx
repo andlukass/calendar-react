@@ -29,7 +29,7 @@ function Week({ currentDate, events }) {
           <HourMeter />
           {weekDays.map((date, index) => 
             <Hours
-              currentWeek={currentDate}
+              currentDate={currentDate}
               events={events}
               drag={drag}
               date={date}
