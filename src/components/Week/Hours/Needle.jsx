@@ -1,4 +1,6 @@
 
+import { isToday } from '../../../utils/isToday';
+
 import PropTypes from 'prop-types';
 
 Needle.propTypes = {
@@ -7,7 +9,7 @@ Needle.propTypes = {
 };
 function Needle({ date, needleRef }) {
 
-  if (date.getDate() !== new Date().getDate() || date.getMonth() !== new Date().getMonth()) return;
+  if (!isToday(date)) return;
 
   const hours = new Date().getHours();
   const minutes = new Date().getMinutes();
@@ -17,28 +19,38 @@ function Needle({ date, needleRef }) {
   const top = hoursSize + minutesSize;
 
   return (
-    <div style={{position: 'absolute',
-      top: top,
-      width: '100%',
-      height: 2,
-      backgroundColor: 'red',
-      zIndex: 100,
-      cursor: 'pointer',
-    }}>
-      <div ref={needleRef} style={{position: "absolute", top: -300}}/>
-      <div style={{
-        width: 10,
-        height: 10, 
-        backgroundColor: 'red',
-        borderRadius: '50%',
-        position: 'absolute',
-        top: -3.5,
-        left: -3,
-        zIndex: 100,
-        cursor: 'pointer'
-      }}/>
+    <div style={{...needleStyle, top: top}}>
+      <div ref={needleRef} style={refStyle} />
+      <div style={circleStyle} />
     </div>
   )
+}
+
+const needleStyle = {
+  position: 'absolute',
+  top: top,
+  width: '100%',
+  height: 2,
+  backgroundColor: 'red',
+  zIndex: 100,
+  cursor: 'pointer',
+}
+
+const refStyle = {
+  position: "absolute",
+  top: -300,
+}
+
+const circleStyle = {
+  width: 10,
+  height: 10, 
+  backgroundColor: 'red',
+  borderRadius: '50%',
+  position: 'absolute',
+  top: -3.5,
+  left: -3,
+  zIndex: 100,
+  cursor: 'pointer'
 }
 
 export default Needle
