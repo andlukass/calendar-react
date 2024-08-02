@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getColorByUser } from './utils/getColorByUser';
+import { getColorByUser } from '../../../utils/getColorByUser';
 import { useEventsStore } from '../../../data/events/useEventsStore';
 
 function useEvent({ event, drag }) {

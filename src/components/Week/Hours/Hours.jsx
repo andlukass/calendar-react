@@ -1,4 +1,4 @@
-import { hourIndexes } from './utils/hourIndexes';
+import { hourIndexes } from '../../../utils/hourIndexes';
 import EventSelector from './EventSelector';
 import HourCell from './HourCell';
 

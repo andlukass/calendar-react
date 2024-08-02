@@ -7,7 +7,7 @@ import { getHourByIndex } from '../Week/Hours/utils/getHourByIndex';
 import { useForm } from 'react-hook-form';
 import { useEffect, useRef } from 'react';
 import AutocompleteRegister from '../../components/inputs/AutocompleteRegister';
-import { hourIndexes } from '../Week/Hours/utils/hourIndexes';
+import { hourIndexes } from '../../utils/hourIndexes';
 import { getIndexByHour } from '../Week/Hours/utils/getIndexByHour';
 import { hourIndexesToHours } from '../Week/Hours/utils/hourIndexesToHours';
 import { useEventsStore } from '../../data/events/useEventsStore';

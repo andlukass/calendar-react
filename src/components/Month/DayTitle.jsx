@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material"
 
 import PropTypes from 'prop-types';
-import { getDayName } from "../Week/Hours/utils/getDayName";
-import { isToday } from "../Week/Hours/utils/isToday";
+import { getDayName } from "../../utils/getDayName";
+import { isToday } from "../../utils/isToday";
 
 DayTitle.propTypes = {
   index: PropTypes.number,

@@ -1,4 +1,4 @@
-import { users } from "../../../../data/users/users";
+import { users } from "../data/users/users";
 
 export const getColorByUser = (id) => {
   if (!id) return '#575656';

@@ -1,4 +1,3 @@
-import { getMonthName } from '../Week/Hours/utils/getMonthName';
 import { Box, Button, Typography } from '@mui/material';
 import ModeButton from '../ModeButton/ModeButton';
 
@@ -13,6 +12,13 @@ Header.propTypes = {
   changeMode: PropTypes.func.isRequired,
 };
 function Header({mode, currentDate, goPrev, goToday, goNext, changeMode}) {
+
+  const getMonthName = (date) => {
+    let monthName = date.toLocaleDateString('pt-BR', { month: 'long' });
+    monthName = monthName.replace('.', '');
+    monthName = monthName.charAt(0).toUpperCase() + monthName.slice(1);
+    return monthName;
+  }
 
   const getInitialMonth = (currentDate) => {
     const firstDay = new Date(

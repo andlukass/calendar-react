@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { getDayName } from "./utils/getDayName";
+import { getDayName } from "../../../utils/getDayName";
 import PropTypes from 'prop-types';
 
 DayTitle.propTypes = {

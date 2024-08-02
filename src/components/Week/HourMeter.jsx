@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { hourIndexes } from "./Hours/utils/hourIndexes";
+import { hourIndexes } from "../../utils/hourIndexes";
 import { getHourByIndex } from "./Hours/utils/getHourByIndex";
 
 function HourMeter() {
