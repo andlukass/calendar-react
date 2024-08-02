@@ -1,9 +1,9 @@
-import { Box, Grid, Typography } from "@mui/material"
+import { Grid } from "@mui/material"
 
 import PropTypes from 'prop-types';
 import DayEvents from "./DayEvents";
 import { useEventModalStore } from "../../data/eventModal/useEventModalStore";
-import { getDayName } from "../Week/Hours/utils/getDayName";
+import DayTitle from "./DayTitle";
 
 Month.propTypes = {
   currentDate: PropTypes.instanceOf(Date),
@@ -12,14 +12,6 @@ Month.propTypes = {
 function Month({ currentDate, events }) {
 
   const setEvent = useEventModalStore((state) => state.setEvent);
-
-  const isToday = (date) => {
-    if (!date) return false;
-    const today = new Date();
-    return date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear();
-  }
 
   const addDaysToDate = (date, days) => {
     const newDate = new Date(date);
@@ -63,58 +55,42 @@ function Month({ currentDate, events }) {
 
   return (
     <>
-      <Box id="hide-scroll" >
-        <Grid  id="hide-scroll" container sx={{display: "flex",
-          overflow: "auto",
-          width: 900,
-          minHeight: "90vh",
-          height: "90vh",
-          position: "relative", boxShadow: "0 0 0 0.10px #656464"}}>
+      <Grid id="hide-scroll" container sx={gridContainerStyle}>
 
         { days.map((day, index) => (
-          <Grid item xs={12 / 7} sx={{height:"20%", boxShadow: "0 0 0 0.10px #656464", maxHeight: 180,
-            overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis',
-          }}
-          onClick={(e)=>createEvent(e, day)}
-          key={index}>
-            {index < 7 && (
-              <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", color: "#656464" }}>
-                <Typography sx={{fontSize: 12}}>
-                  {getDayName(day)}
-                </Typography>
-              </Box>
-            )
-            }
-            <Box key={day} sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-              <Typography sx={dayTitleStyle(isToday(day))}>
-                {day.getDate()}
-              </Typography>
-            </Box>
+          <Grid key={index} item xs={12 / 7} sx={gridItemStyle}
+            onClick={(e)=>createEvent(e, day)}
+          >
 
+            <DayTitle day={day} index={index} />
             <DayEvents day={day} events={events} />
 
           </Grid>
           ))
         }
 
-        </Grid>
-      </Box>
+      </Grid>
     </>
   )
 }
 
-const dayTitleStyle = (isToday) => ({
+const gridContainerStyle = {
   display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  backgroundColor: isToday ? "#3786ed" : "transparent",
-  color: isToday ? "#ffffff" : "#656464",
-  fontSize: 12,
-  width: 17,
-  height: 17,
-  borderRadius: 50,
-  fontWeight: isToday ? 300 : 300,
-  userSelect: "none",
-});
+  overflow: "auto",
+  width: 900,
+  minHeight: "90vh",
+  height: "90vh",
+  position: "relative",
+  boxShadow: "0 0 0 0.10px #656464",
+}
+
+const gridItemStyle = {
+  height: "20%",
+  boxShadow: "0 0 0 0.10px #656464",
+  maxHeight: 180,
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+}
 
 export default Month
