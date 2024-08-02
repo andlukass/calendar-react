@@ -103,6 +103,7 @@ function Hours({ date, drag, events, currentWeek }) {
   }, [currentWeek]);
 
   return (
+    <>
     <div style={{position: "relative"}}>
       <DayTitle date={date} />
       <Needle date={date} needleRef={needleRef} />
@@ -113,7 +114,7 @@ function Hours({ date, drag, events, currentWeek }) {
           <EventSelector hour={hour} drag={drag} day={day} />
         </div>
       ))}
-    </div>
+    </div></>
   )
 }
 

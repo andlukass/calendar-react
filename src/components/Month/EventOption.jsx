@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material"
 
-import { getHourByIndex } from "../Week/Hours/utils/getHourByIndex";
+import { getHourByIndex } from "../../utils/getHourByIndex";
 import { getColorByUser } from "../../utils/getColorByUser";
 import { useEventModalStore } from "../../data/eventModal/useEventModalStore";
 import { eventOptionStyle } from "./eventOptionStyle";

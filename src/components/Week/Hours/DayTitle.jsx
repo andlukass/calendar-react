@@ -1,29 +1,25 @@
 import { Box, Typography } from "@mui/material";
 import { getDayName } from "../../../utils/getDayName";
 import PropTypes from 'prop-types';
+import { isToday } from "../../../utils/isToday";
 
 DayTitle.propTypes = {
   date: PropTypes.instanceOf(Date),
 };
 function DayTitle({ date }) {
 
-  const isToday = () => {
-    const today = new Date();
-    return date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear();
-  }
-
   return (
       <Box sx={containerStyle}>
           <Box sx={cellStyle} height={20}>
-            <Typography variant="body2"
-              sx={{fontSize: 12, color: isToday() ? "#3786ed" : "#656464"}}>
+            <Typography
+              sx={{fontSize: 12,
+              color: isToday(date) ? "#3786ed" : "#656464"}}
+            >
               {getDayName(date)}
             </Typography>
           </Box>
           <Box sx={cellStyle} height={30} pb={1.2}>
-            <Typography variant="h4" sx={textStyle(isToday())}>
+            <Typography sx={textStyle(isToday(date))}>
               {date.getDate()}
             </Typography>
           </Box>
@@ -51,7 +47,8 @@ const containerStyle = {
   position: "sticky",
   top: 0,
   zIndex: 91,
-  borderBottom: "0.5px solid #656464"
+  borderBottom: "0.5px solid #656464",
+  borderTop: "0.5px solid #656464"
 };
 
 const cellStyle = {

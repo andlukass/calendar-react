@@ -1,4 +1,5 @@
-import { hourIndexes } from "../../../../utils/hourIndexes";
+
+import { hourIndexes } from "./hourIndexes";
 import { hourIndexesToHours } from "./hourIndexesToHours";
 
 export const getIndexByHour = (hour) => {

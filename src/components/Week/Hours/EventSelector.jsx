@@ -1,5 +1,5 @@
 import Event from './Event';
-import { getHourByIndex } from './utils/getHourByIndex';
+import { getHourByIndex } from '../../../utils/getHourByIndex';
 
 import PropTypes from 'prop-types';
 
