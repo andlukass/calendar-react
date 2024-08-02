@@ -3,7 +3,6 @@ import EventSelector from './EventSelector';
 import HourCell from './HourCell';
 
 import DayEvents from './DayEvents';
-import DayTitle from './DayTitle';
 import PropTypes from 'prop-types';
 import Needle from './Needle';
 import { useEffect, useRef } from 'react';
@@ -103,9 +102,7 @@ function Hours({ date, drag, events, currentWeek }) {
   }, [currentWeek]);
 
   return (
-    <>
-    <div style={{position: "relative"}}>
-      <DayTitle date={date} />
+    <div>
       <Needle date={date} needleRef={needleRef} />
       {hourIndexes.map((hour) => (
         <div key={hour} style={{position: "relative"}}>
@@ -114,7 +111,7 @@ function Hours({ date, drag, events, currentWeek }) {
           <EventSelector hour={hour} drag={drag} day={day} />
         </div>
       ))}
-    </div></>
+    </div>
   )
 }
 

@@ -8,7 +8,6 @@ function HourMeter() {
   return (
     <>
       <Box sx={containerStyle}>
-        <Box width={60} height={60} sx={marginBoxStyle} />
         {hourIndexes.map((hour) => (
           <Box key={hour} sx={cellStyle}>
             <Typography sx={labelStyle}>
@@ -30,12 +29,6 @@ const containerStyle = {
   p: 0.2
 }
 
-const marginBoxStyle = {
-  backgroundColor: "white",
-  position: "sticky",
-  top: 0,
-}
-
 const cellStyle = {
   backgroundColor: "white",
   minWidth: 60,
@@ -44,7 +37,7 @@ const cellStyle = {
 }
 
 const labelStyle = {
-  mt: -1,
+  mt: -1.5,
   pr: 1,
   textAlign: "end",
   color: "#767676",

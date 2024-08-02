@@ -13,7 +13,7 @@ function Needle({ date, needleRef }) {
 
   const hours = new Date().getHours();
   const minutes = new Date().getMinutes();
-  const daysTitleSize = 103;
+  const daysTitleSize = 180;
   const hoursSize = (hours * 50) + daysTitleSize;
   const minutesSize = (minutes * 50) / 60;
   const top = hoursSize + minutesSize;
@@ -29,7 +29,7 @@ function Needle({ date, needleRef }) {
 const needleStyle = {
   position: 'absolute',
   top: top,
-  width: '100%',
+  width: 125,
   height: 2,
   backgroundColor: 'red',
   zIndex: 100,

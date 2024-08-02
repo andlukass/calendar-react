@@ -47,8 +47,7 @@ const containerStyle = {
   position: "sticky",
   top: 0,
   zIndex: 91,
-  borderBottom: "0.5px solid #656464",
-  borderTop: "0.5px solid #656464"
+  borderBottom: "0.5px solid #65646468",
 };
 
 const cellStyle = {
