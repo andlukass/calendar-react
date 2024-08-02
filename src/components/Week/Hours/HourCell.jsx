@@ -14,14 +14,7 @@ function HourCell({ date, hour, drag }) {
   const setEvent = useEventModalStore((state) => state.setEvent);
 
   const createEvent = (start, end) => {
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const eventDate = new Date(`${date.getFullYear()}/${month}/${day}`);
-    setEvent({
-      start: start,
-      end: end ? end : start,
-      date: eventDate,
-    });
+    setEvent({ start: start, end: end, date: date });
     stopDraggin();
   };
 

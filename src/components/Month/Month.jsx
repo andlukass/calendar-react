@@ -19,14 +19,7 @@ function Month({ currentDate, events }) {
 
   const createEvent = (e, date) => {
     e.stopPropagation();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const eventDate = new Date(`${date.getFullYear()}/${month}/${day}`);
-    setEvent({
-      start: null,
-      end: null,
-      date: eventDate,
-    });
+    setEvent({ start: null, end: null, date: date });
   };
 
   return (
