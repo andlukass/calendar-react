@@ -1,8 +1,8 @@
-import EventModal from './components/EventModal/EventModal';
-import Week from './Week/Week';
-import Month from './components/Month/Month';
-import { useEventsStore } from './data/events/useEventsStore';
-import Header from './Header';
+import EventModal from './EventModal/EventModal';
+import Week from '../Week/Week';
+import Month from './Month/Month';
+import { useEventsStore } from '../data/events/useEventsStore';
+import Header from './Header/Header';
 import useCalendarConfig from './useCalendarConfig';
 
 function Calendar() {
