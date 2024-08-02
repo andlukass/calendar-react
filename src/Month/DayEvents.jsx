@@ -1,11 +1,11 @@
-import { Box, Typography } from "@mui/material"
+import { Box } from "@mui/material"
 import { useWindowSize } from 'usehooks-ts'
 
-import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
-import { getHourByIndex } from "../Week/Hours/utils/getHourByIndex";
-import { getColorByUser } from "../Week/Hours/utils/getColorByUser";
-import { useEventModalStore } from "../data/eventModal/useEventModalStore";
+import MoreEventsList from "./MoreEventsList";
+import EventOption from "./EventOption";
+
+import PropTypes from 'prop-types';
 
 DayEvents.propTypes = {
   day: PropTypes.instanceOf(Date),
@@ -15,8 +15,6 @@ function DayEvents({ events, day }) {
 
   const { height } = useWindowSize();
 
-  const setEvent = useEventModalStore((state) => state.setEvent);
-
   const dayEvents = events.filter(event => {
     const date = new Date(event.date);
     return date.getDate() === day.getDate() &&
@@ -24,7 +22,7 @@ function DayEvents({ events, day }) {
     date.getFullYear() === day.getFullYear()
   });
 
-  const [rows, setRows] = useState(0)
+  const [rows, setRows] = useState(0);
 
   const calculateRows = () => {
     let rows;
@@ -40,78 +38,28 @@ function DayEvents({ events, day }) {
   }
 
   useEffect(() => {
-    calculateRows()
+    calculateRows();
   }, [height])
-
-  const handleEventClick = (e, event) => {
-    e.stopPropagation();
-    setEvent(event);
-  }
 
   return (
     <>
-      <Box>
-        {dayEvents.map((event, index) => (
-          <Box key={index}>
 
-            {index < rows &&
-            <Box onClick={(e)=>handleEventClick(e, event)} sx={eventStyle}>
+      {dayEvents.map((event, index) => (
+        <Box key={index}>
+          {(index < rows || dayEvents.length === 1) &&
+          <EventOption event={event} />}
+        </Box>
+      ))}
 
-              <div style={{...iconStyle, backgroundColor: getColorByUser(event.user)}}/>
+      {dayEvents.length > rows && dayEvents.length !== 1 &&
+        <MoreEventsList events={dayEvents}
+          title={!rows ? dayEvents.length+" eventos" :
+          "mais "+(dayEvents.length - rows)}
+        />
+      }
 
-              <Typography sx={{fontSize: 12, color: "#656464"}}>
-                {getHourByIndex(event.start)}&nbsp;
-              </Typography>
-
-              <Typography sx={{fontSize: 12, color: "#333333", fontWeight: 600}}>
-                {event.title}
-              </Typography>
-
-            </Box>
-            }
-
-            {dayEvents.length > rows && index === rows - 1 &&
-            <Box sx={eventStyle}>
-              <Typography sx={titleStyle}>mais {dayEvents.length - rows}</Typography>
-            </Box>}
-
-            {!rows && !index &&
-            <Box sx={eventStyle}>
-              <Typography sx={titleStyle}>{dayEvents.length} eventos</Typography>
-            </Box>}
-
-          </Box>
-        ))}
-      </Box>
     </>
   )
 }
 
-
-const eventStyle = {
-  display: "flex",
-  alignItems: "center",
-  m: 0.1,
-  marginRight: 0.5,
-  marginLeft: 0.5,
-  borderRadius: 1,
-  cursor: "pointer",
-  '&:hover': {
-    backgroundColor: '#ececec',
-  },
-}
-
-const iconStyle = {
-  minWidth: 7, 
-  minHeight: 7,
-  marginRight: 3,
-  borderRadius: 5,
-}
-
-const titleStyle = {
-  fontSize: 12,
-  color: "#333333",
-  fontWeight: 600,
-}
-
-export default DayEvents
+export default DayEvents;
