@@ -6,6 +6,7 @@ export const eventOptionStyle = {
   marginLeft: 0.5,
   borderRadius: 1,
   cursor: "pointer",
+  userSelect: "none",
   '&:hover': {
     backgroundColor: '#ececec',
   },

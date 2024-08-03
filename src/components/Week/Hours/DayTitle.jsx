@@ -47,6 +47,7 @@ const containerStyle = {
   position: "sticky",
   top: 0,
   zIndex: 91,
+  userSelect: "none",
   borderBottom: "0.5px solid #65646468",
 };
 

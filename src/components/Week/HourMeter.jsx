@@ -25,7 +25,8 @@ const containerStyle = {
   left: 0,
   zIndex: 92,
   height: "auto",
-  p: 0.2
+  p: 0.2,
+  userSelect: "none",
 }
 
 const cellStyle = {

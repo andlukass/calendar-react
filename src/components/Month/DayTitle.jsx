@@ -46,6 +46,7 @@ const dayLabelStyle = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  userSelect: "none",
   color: "#656464",
   fontSize: 12,
 }
