@@ -62,7 +62,7 @@ function Header({mode, currentDate, goPrev, goToday, goNext, changeMode}) {
           {">"}
         </Typography>
 
-        <Typography variant='h6' sx={{p: 0.5, width: 500}}>
+        <Typography variant='h6' sx={{p: 0.5, width: {xs: 100,md:500}, fontSize: 13}}>
           {getInitialMonth(currentDate) + getNextMonth(currentDate) + " " +
            getYear(currentDate)}</Typography>
 
