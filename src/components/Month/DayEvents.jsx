@@ -10,8 +10,9 @@ import PropTypes from 'prop-types';
 DayEvents.propTypes = {
   day: PropTypes.instanceOf(Date),
   events: PropTypes.array,
+  drag: PropTypes.object,
 };
-function DayEvents({ events, day }) {
+function DayEvents({ events, day, drag }) {
 
   const { height } = useWindowSize();
 
@@ -47,12 +48,12 @@ function DayEvents({ events, day }) {
       {dayEvents.map((event, index) => (
         <Box key={index}>
           {(index < rows || dayEvents.length === 1) &&
-          <EventOption event={event} />}
+          <EventOption event={event} drag={drag} />}
         </Box>
       ))}
 
       {dayEvents.length > rows && dayEvents.length !== 1 &&
-        <MoreEventsList events={dayEvents}
+        <MoreEventsList events={dayEvents} drag={drag}
           title={!rows ? dayEvents.length+" eventos" :
           "mais "+(dayEvents.length - rows)}
         />

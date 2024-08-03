@@ -9,8 +9,10 @@ import PropTypes from 'prop-types';
 
 EventOption.propTypes = {
   event: PropTypes.object,
+  drag: PropTypes.object,
+  close: PropTypes.func,
 };
-function EventOption({ event }) {
+function EventOption({ event, drag, close }) {
 
   const setEvent = useEventModalStore((state) => state.setEvent);
 
@@ -20,7 +22,13 @@ function EventOption({ event }) {
   }
 
   return (
-    <Box onClick={(e)=>handleEventClick(e, event)} sx={eventOptionStyle}>
+    <Box onClick={(e)=>handleEventClick(e, event)} sx={eventOptionStyle}
+      draggable
+      onDragStart={()=>{
+        if (close) close();
+        drag.startEventDraggin(event.date.getDate(), null, event.id)}
+      }
+    >
 
       <div style={{...iconStyle, backgroundColor: getColorByType(event.user)}}/>
 

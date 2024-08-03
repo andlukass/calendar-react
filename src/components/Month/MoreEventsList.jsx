@@ -9,8 +9,9 @@ import PropTypes from 'prop-types';
 MoreEventsList.propTypes = {
   title: PropTypes.string,
   events: PropTypes.array,
+  drag: PropTypes.object,
 };
-function MoreEventsList({title, events}) {
+function MoreEventsList({title, events, drag}) {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -19,7 +20,7 @@ function MoreEventsList({title, events}) {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (e) => {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     setAnchorEl(null);
   };
 
@@ -41,8 +42,9 @@ function MoreEventsList({title, events}) {
       </Box>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose} sx={{mt: 0.5}}>
         {events.map((event, index) => (
-          <MenuItem key={index} onClick={(e)=>handleEventClick(e, event)}>
-            <EventOption event={event} />
+          <MenuItem key={index}
+          onClick={(e)=>handleEventClick(e, event)}>
+            <EventOption event={event} drag={drag} close={handleClose} />
           </MenuItem>
         ))}
       </Menu>

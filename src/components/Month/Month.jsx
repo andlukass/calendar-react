@@ -6,6 +6,8 @@ import DayTitle from "./DayTitle";
 import { getDaysArray } from "./getDaysArray";
 
 import PropTypes from 'prop-types';
+import useDrag from "../Week/useDrag";
+import { useEventsStore } from "../../data/events/useEventsStore";
 
 Month.propTypes = {
   currentDate: PropTypes.instanceOf(Date),
@@ -14,6 +16,8 @@ Month.propTypes = {
 function Month({ currentDate, events }) {
 
   const setEvent = useEventModalStore((state) => state.setEvent);
+  const editEvent = useEventsStore((state) => state.editEvent);
+  const drag = useDrag();
 
   const days = getDaysArray(currentDate);
 
@@ -22,6 +26,20 @@ function Month({ currentDate, events }) {
     setEvent({ start: null, end: null, date: date });
   };
 
+  const handleEndDrag = () => {
+    const id = drag.dragEvent.current;
+    const year = drag.dragYear.current;
+    const month = drag.dragMonth.current;
+    const day = drag.dragDay.current;
+    let event = JSON.parse(
+      JSON.stringify(events.find((event) => event.id === id))
+    );
+    const newDate = new Date(`${year}-${month}-${day}`);
+    event.date = newDate;
+    editEvent(event);
+    drag.stopDraggin();
+  }
+
   return (
     <>
       <Grid id="hide-scroll" container sx={gridContainerStyle}>
@@ -29,10 +47,19 @@ function Month({ currentDate, events }) {
         { days.map((day, index) => (
           <Grid key={index} item xs={12 / 7} sx={gridItemStyle}
             onClick={(e)=>createEvent(e, day)}
+            onDrop={handleEndDrag}
+            onDragOver={(e) => {
+              e.preventDefault();
+              drag.updateEnd(
+                day.getDate(),
+                day.getMonth() + 1,
+                day.getFullYear(),
+                null);
+            }}
           >
 
             <DayTitle day={day} index={index} />
-            <DayEvents day={day} events={events} />
+            <DayEvents day={day} events={events} drag={drag} />
 
           </Grid>
           ))
