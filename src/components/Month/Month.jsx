@@ -6,7 +6,7 @@ import DayTitle from "./DayTitle";
 import { getDaysArray } from "./getDaysArray";
 
 import PropTypes from 'prop-types';
-import useDrag from "../Week/useDrag";
+import useDrag from "../useDrag";
 import { useEventsStore } from "../../data/events/useEventsStore";
 
 Month.propTypes = {

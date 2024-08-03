@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import Hours from "./Hours/Hours";
-import useDrag from "./useDrag";
+import useDrag from "../useDrag";
 import HourMeter from "./HourMeter";
 import DayTitle from "./Hours/DayTitle";
 import { getWeekDates } from "./utils/getWeekDays";
