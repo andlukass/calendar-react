@@ -29,9 +29,6 @@ function Event({ event, drag, onClick}) {
         onDragStart={(e)=>{handleDragStart(e, -1);setIsDragging(true)}}>
           <Typography variant='body1' sx={titleStyle}>
             {!isDragging && event.title}
-            {/* {drag ? ((drag.dragEvent.current === 1
-              && eventProps.id !== drag.dragEvent.current
-            ) ? "none" : "auto") : "none"} */}
           </Typography>
         </Box>
         { eventProps.size > 1 &&
@@ -53,6 +50,7 @@ const titleStyle = {
   userSelect: "none",
   mt: 3,
   textAlign: "start",
+  overflow: "hidden",
 };
 
 const cellStyle = {

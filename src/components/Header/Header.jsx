@@ -62,9 +62,10 @@ function Header({mode, currentDate, goPrev, goToday, goNext, changeMode}) {
           {">"}
         </Typography>
 
-        <Typography variant='h6' sx={{p: 0.5, width: {xs: 100,md:500}, fontSize: 13}}>
+        <Typography variant='h6' sx={monthNameStyle}>
           {getInitialMonth(currentDate) + getNextMonth(currentDate) + " " +
-           getYear(currentDate)}</Typography>
+           getYear(currentDate)}
+        </Typography>
 
         <ModeButton mode={mode} changeMode={changeMode} />
 
@@ -72,5 +73,11 @@ function Header({mode, currentDate, goPrev, goToday, goNext, changeMode}) {
     </>
   )
 }
+
+const monthNameStyle = {
+  fontSize: {xs: 13, md: 18},
+  width: {xs: 100,md:500},
+  p: 0.5,
+};
 
 export default Header;
