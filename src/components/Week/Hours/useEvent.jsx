@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getColorByUser } from '../../../utils/getColorByUser';
+import { getColorByType } from '../../../utils/getColorByType';
 import { useEventsStore } from '../../../data/events/useEventsStore';
 
 function useEvent({ event, drag }) {
@@ -15,7 +15,7 @@ function useEvent({ event, drag }) {
   const eventProps = {
     id: event.id,
     left: event.left,
-    color: getColorByUser(event.user),
+    color: getColorByType(event.user),
     width: width,
     opacity: opacity,
     size: eventSize,

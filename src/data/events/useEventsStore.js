@@ -15,7 +15,7 @@ const sortEvents = (events) => {
 }
 
 export const useEventsStore = create((set) => ({
-		events: sortEvents(initialEvents),
+		events: sortEvents(initialEvents(new Date())),
     addEvent: (event) => set((state) => (
       { events: sortEvents([...state.events, event]) }
     )),

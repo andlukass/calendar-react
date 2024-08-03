@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useEventModalStore } from '../../data/eventModal/useEventModalStore';
 import { Button, Typography } from '@mui/material';
-import { users } from '../../data/users/users';
+import { types } from '../../data/types/types';
 import { useForm } from 'react-hook-form';
 import { useEffect, useRef } from 'react';
 import AutocompleteRegister from '../../components/inputs/AutocompleteRegister';
@@ -43,7 +43,7 @@ function EventModal( ) {
 
   useEffect(() => {
     if (event) {
-      const user = event.id ? users.find((user) => user.id === event.user).name : '';
+      const user = event.id ? types.find((user) => user.id === event.user).name : '';
       const eventStart = event.start !== 0 ? event.start : 0;
       const eventEnd = event.end === null ? null : event.end + 1;
       form.setValue('date', dayjs(event.date));
@@ -61,7 +61,7 @@ function EventModal( ) {
     event.start = (getIndexByHour(event.start));
     event.end = (getIndexByHour(event.end)-1);
     event.date = new Date(event.date.format('YYYY-MM-DD'));
-    event.user = users.find((user) => user.name === event.user).id;
+    event.user = types.find((user) => user.name === event.user).id;
     if (event.id) editEvent(event);
     else {
       event.id = Math.random();
@@ -97,7 +97,7 @@ function EventModal( ) {
                 <Typography><b>Titulo</b></Typography>
                 <TextInputRegister fieldName='title' form={form} />
                 <Typography><b>Colaborador</b></Typography>
-                <AutocompleteRegister fieldName='user' options={users.map(user => user.name)} form={form} />
+                <AutocompleteRegister fieldName='user' options={types.map(user => user.name)} form={form} />
                 <Typography><b>Data</b></Typography>
                 <DatePickerRegister form={form} fieldName='date' />
                 <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", mt: 1}}>

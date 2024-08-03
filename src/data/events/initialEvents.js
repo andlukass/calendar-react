@@ -1,62 +1,63 @@
-export const initialEvents = [
+export const initialEvents = (date) => {
+  
+  const time = date.getHours();
+  
+  return [
     {
       id: 53,
-      date: new Date("07/30/2024"),
-      start: 2,
-      end: 4,
+      date: date,
+      start: 2 + (time * 2),
+      end: 4 + (time * 2),
       user: "1",
-      title: "Hotel California",
+      title: "Exemplo 1",
     },
     {
       id: 63,
-      date: new Date("07/30/2024"),
-      start: 1,
-      end: 8,
+      date: date,
+      start: 1 + (time * 2),
+      end: 8 + (time * 2),
       user: "2",
-      title: "b",
+      title: "Exemplo 2",
     },
     {
       id: 4,
-      date: new Date("07/30/2024"),
-      start: 5,
-      end: 8,
+      date: date,
+      start: 5 + (time * 2),
+      end: 8 + (time * 2),
       user: "3",
-      title: "b",
+      title: "Exemplo 3",
     },
     {
       id: 5,
-      date: new Date("07/30/2024"),
-      start: 5,
-      end: 8,
+      date: date,
+      start: 5 + (time * 2),
+      end: 8 + (time * 2),
       user: "3",
-      title: "b",
+      title: "Exemplo 4",
     },
     {
       id: 6,
-      date: new Date("07/30/2024"),
-      start: 5,
-      end: 8,
+      date: date,
+      start: 5 + (time * 2),
+      end: 8 + (time * 2),
       user: "3",
-      title: "b",
+      title: "Exemplo 5",
     },
     {
       id: 7,
-      date: new Date("07/30/2024"),
-      start: 5,
-      end: 8,
+      date: date,
+      start: 5 + (time * 2),
+      end: 8 + (time * 2),
       user: "3",
-      title: "b",
+      title: "Exemplo 6",
     },
     {
       id: 8,
-      date: new Date("07/30/2024"),
-      start: 5,
-      end: 8,
+      date: date,
+      start: 5 + (time * 2),
+      end: 8 + (time * 2),
       user: "3",
-      title: "b",
+      title: "Exemplo 7",
     },
-
-
-
-
-  ]
+]
+}

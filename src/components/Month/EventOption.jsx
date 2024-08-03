@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material"
 
 import { getHourByIndex } from "../../utils/getHourByIndex";
-import { getColorByUser } from "../../utils/getColorByUser";
+import { getColorByType } from "../../utils/getColorByType";
 import { useEventModalStore } from "../../data/eventModal/useEventModalStore";
 import { eventOptionStyle } from "./eventOptionStyle";
 
@@ -22,7 +22,7 @@ function EventOption({ event }) {
   return (
     <Box onClick={(e)=>handleEventClick(e, event)} sx={eventOptionStyle}>
 
-      <div style={{...iconStyle, backgroundColor: getColorByUser(event.user)}}/>
+      <div style={{...iconStyle, backgroundColor: getColorByType(event.user)}}/>
 
       <Typography sx={{fontSize: 12, color: "#656464"}}>
         {getHourByIndex(event.start)}&nbsp;
