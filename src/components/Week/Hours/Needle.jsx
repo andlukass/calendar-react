@@ -47,7 +47,7 @@ const needleStyle = {
   width: 125,
   height: 2,
   backgroundColor: 'red',
-  zIndex: 100,
+  zIndex: 90,
   cursor: 'pointer',
 }
 
