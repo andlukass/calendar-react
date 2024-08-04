@@ -64,7 +64,7 @@ const circleStyle = {
   position: 'absolute',
   top: -3.5,
   left: -3,
-  zIndex: 100,
+  zIndex: 90,
   cursor: 'pointer'
 }
 
