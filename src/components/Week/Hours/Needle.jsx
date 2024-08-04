@@ -14,9 +14,9 @@ function Needle({ date, currentDate }) {
 
   const hours = new Date().getHours();
   const minutes = new Date().getMinutes();
-  const daysTitleSize = 180;
-  const hoursSize = (hours * 50) + daysTitleSize;
-  const minutesSize = (minutes * 50) / 60;
+  const daysTitleSize = 65;
+  const hoursSize = (hours * 55) + daysTitleSize;
+  const minutesSize = (minutes * 55) / 60;
   const top = hoursSize + minutesSize;
 
   const scrollToRef = () => {
